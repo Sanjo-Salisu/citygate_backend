@@ -1,0 +1,742 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+  <title>Citygate Global Limited</title>
+  <style>
+    :root {
+      --primary: #ff7a00;
+      --light: #ffffff;
+      --dark: #1a1a1a;
+    }
+@media only screen and (max-width: 768px) {
+  .logo img {
+    height: 40px !important; /* force override */
+  }
+}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: var(--dark);
+      color: var(--light);
+      overflow-x: hidden;
+    }
+
+    header {
+      position: relative;
+      text-align: center;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(109, 109, 109, 0.6)), 
+      url("{% static 'images/general.jpg'%}") no-repeat center/cover;
+      height: 70vh;
+      overflow: hidden;
+    }
+  .logo img {
+    height: 40px !important;
+  }
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 122, 0, 0.95);
+    padding: 1rem 5%;
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  nav ul {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  nav ul li a {
+    color: var(--light);
+    text-decoration: none;
+    font-size: large;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  nav ul li.getloan a {
+    color: white;
+    border: 2px solid orange;
+    border-radius: 50px;
+    padding: 0.3rem 1rem;
+    display: block;
+    transition: all 0.3s ease;
+  }
+  nav ul li.getloan a:hover {
+    background: var(--dark);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-color: var(--dark);
+  }
+  nav ul li:not(.getloan) a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background: white;
+    transition: width 0.3s ease;
+  }
+  nav ul li:not(.getloan) a:hover::after { width: 100%; }
+
+  .menu-toggle {
+    display: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1001;
+  }
+
+    /* Hero text */
+    .hero {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--light);
+      text-align: center;
+      z-index: 2;
+    }
+
+    .hero h2 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+    }
+
+    /* Balloons */
+    #balloon-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -10px;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: float 10s linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0) rotate(0deg); }
+      to { transform: translateY(-120vh) rotate(360deg); }
+    }
+
+    /* About Us */
+    #about {
+      background: #fff;
+      color: #000;
+      padding: 80px 20px;
+      text-align: justify;
+    }
+
+    #about h2 {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    #about p {
+      max-width: 800px;
+      margin: 10px auto;
+      line-height: 1.6;
+    }
+
+    /* Management Team */
+    #management {
+      background: #f7f7f7;
+      color: #000;
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    #management h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    #management p {
+      max-width: 800px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+    .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff;
+    color: #000;
+    text-align: justify;
+    padding: 25px;
+    width: 450px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.modal-content img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.close {
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+    .team-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      justify-items: center;
+      align-items: start;
+    }
+
+    .team-member {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 250px;
+      transition: transform 0.3s ease;
+      
+    }
+
+    .team-member:hover {
+      transform: translateY(-5px);
+    }
+
+    .team-member img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .team-member h4 {
+      margin-top: 10px;
+      color: var(--primary);
+      font-size: 1rem;
+    }
+
+    .team-member p {
+      font-size: 0.9rem;
+      color: #333;
+      margin-bottom: 15px;
+      
+    }
+
+      /* Why We Do Section */
+    #whywedo {
+      background: #fff;
+      color: #000;
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+    #whywedo h2 {
+      color: var(--primary);
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      line-height: 1.2;
+    }
+
+    .why-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .why-box {
+      flex: 1 1 250px;
+      background: #f9f9f9;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .why-box:hover {
+      transform: translateY(-5px);
+    }
+
+    .why-box h3 {
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    .why-box p, .why-box ul {
+      color: #333;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .why-box ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .why-box ul li::before {
+      content: "✔️";
+      color: var(--primary);
+      margin-right: 8px;
+    }
+/* Join us */
+#join {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  background: #fcfcfc;
+  color: var(--dark);
+  padding: 80px 10%;
+  flex-wrap: wrap; /* makes it responsive */
+}
+
+#join .join-text {
+  flex: 1 1 400px;
+  max-width: 500px;
+}
+
+#join .join-text h2 {
+  color: #ff7a00;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+#join .join-text p {
+  line-height: 1.7;
+  margin-bottom: 25px;
+}
+
+#join .join-text button {
+  background: #ff7a00;
+  border: none;
+  color: white;
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#join .join-text button:hover {
+  background: #e46d00;
+}
+
+#join .join-image {
+  flex: 1 1 400px;
+  max-width: 500px;
+}
+
+#join .join-image img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+    /* Footer */
+    footer {
+      background: rgba(255, 122, 0, 0.95);
+      text-align: center;
+      padding: 30px 10px;
+      color: var(--light);
+      font-size: 0.9rem;
+    }
+
+    footer p {
+      margin-top: 5px;
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
+    footer .credit {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 5px;
+    }
+.cookie-banner {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1500px;
+  background: #0b132b;
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  padding: 1.8rem 2rem;
+  font-family: 'Poppins', sans-serif;
+  display: none;
+  z-index: 10000;
+}
+
+.cookie-banner.show {
+  display: block;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.cookie-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.cookie-content p {
+  flex: 1.5;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #ddd;
+}
+
+.cookie-link {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.cookie-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.cookie-btn {
+  border: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.cookie-btn.accept {
+  background: var(--primary);
+  color: #fff;
+}
+
+.cookie-btn.accept:hover {
+  background: #ff7800;
+}
+
+.cookie-btn.decline {
+  background: transparent;
+  border: 1px solid #ccc;
+  color: #fff;
+}
+
+.cookie-btn.decline:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cookie-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cookie-buttons {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .team-container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: var(--primary);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      padding: 0;
+      margin: 0;
+      z-index: 999;
+      transform: translateY(-100%);
+      transition: transform 0.5s ease-in-out;
+    }
+    nav ul.active { transform: translateY(0); }
+    .menu-toggle { display: block; }
+    nav ul li { width: 100%; text-align: center; }
+    nav ul li.getloan { width: 80%; }
+    nav ul li a { font-size: 1.5rem; padding: 1rem 0; }
+  
+
+      .team-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .team-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="balloon-container"></div>
+
+
+<nav>
+        <div class="logo">
+        <img src="{% static 'images/citygate.png' %}" alt="ETMFB Logo">
+      </div>
+  <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+  <ul id="nav-links">
+    <li><a href="/home/">Home</a></li>
+    <li><a href="/about/">About Us</a></li>
+    <li><a href="/loan/">Loans</a></li>
+    <li><a href="https://monee.ng/">Monee</a></li>
+    <li><a href="/gallery/">Gallery</a></li>
+    <li><a href="/contact/">Contact</a></li>
+     <li><a href="/career/">Career</a></li>
+      <li><a href="/FAQ/">FAQ</a></li>
+    <li class="getloan"><a href="http://onlineloan.citygateglobal.com">Get Loan</a></li>
+  </ul>
+</nav>
+
+
+  <header>
+    <div class="hero">
+      <h2>About City Gate</h2>
+      <p>Your trusted partner in financial growth</p>
+    </div>
+  </header>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p>Citygate Global Investment Ltd is an organization founded in June 2007 to engage in Finance business (Microfinance) and registered with Corporate Affairs Commission (CAC). Citygate Global is a registered member of AMFIN and also a licensed Money Lending Company in Nigeria.</p>
+  </section>
+
+  <!-- Management Team Section -->
+  <section id="management">
+      <h2>Management Team</h2>
+      <p>Meet the dedicated professionals driving CityGate’s mission...</p>
+
+      <div class="team-container">
+          {% for profile in profiles %}
+          <div class="team-member"
+              onclick="
+                  openModal(
+                      '{{ profile.name }}',
+                      '{{ profile.about|escapejs }}', 
+                      '{{ profile.profile_pic.url }}'
+                  )">
+
+              {% if profile.profile_pic %}
+                  <img src="{{ profile.profile_pic.url }}" alt="{{ profile.name }}">
+              {% else %}
+                  <img src="{% static 'images/default-profile.png' %}" alt="{{ profile.name }}">
+              {% endif %}
+
+              <h4>{{ profile.name }}</h4>
+              <p>{{profile.title}}</p>
+          </div>
+          {% endfor %}
+      </div>
+</section>
+
+<!-- Modal -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+
+        <img id="modalImage" src="" alt="">
+        <h2 id="modalName"></h2>
+        <p id="modalAbout"></p>
+    </div>
+</div>
+
+   <!-- Why We Do Section -->
+  <section id="whywedo">
+    <h2>Why We Do What We Do</h2>
+    <div class="why-container">
+      <div class="why-box">
+        <h3>Vision</h3>
+        <p>To be the most preferred one-stop financial institution that improves the lives of all.</p>
+      </div>
+      <div class="why-box">
+        <h3>Mission Statement</h3>
+        <p>To deploy effective, innovative, and responsive financial offerings in meeting market needs, delivering excellent customer service and shareholder's return.</p>
+      </div>
+      <div class="why-box">
+        <h3>Core Values</h3>
+        <ul>
+          <li>Passion</li>
+          <li>Excellence</li>
+          <li>Innovation</li>
+          <li>Team Work</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+<section id="join">
+  <div class="join-text">
+    <h2>Join Us</h2>
+    <p>Be part of our journey to create financial solutions that empower lives and foster innovation. Partner with us to make a meaningful impact and shape the future of finance together.</p>
+   <a href="http://onlineloan.citygateglobal.com" target="_blank"><button>Join Now</button></a>
+  </div>
+  <div class="join-image">
+    <img src="{% static 'images/join.jpg' %}" alt="Join CityGate Team">
+  </div>
+</section>
+
+  <footer>
+    <h3>Citygate Globalk</h3>
+    <p>© 2025 Citygate Global, All Rights Reserved.</p>
+  </footer>
+
+  <div id="cookie-banner" class="cookie-banner">
+  <div class="cookie-content">
+    <p>
+      We use cookies to improve your browsing experience, personalize content, and analyze our traffic. 
+      By clicking <strong>Accept All</strong>, you consent to our use of cookies. 
+      <a href="/terms/" class="cookie-link">Learn more</a>.
+    </p>
+    <div class="cookie-buttons">
+      <button id="acceptCookies" class="cookie-btn accept">Accept All</button>
+      <button id="declineCookies" class="cookie-btn decline">Decline</button>
+    </div>
+  </div>
+</div>
+
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    menuToggle.innerHTML = navLinks.classList.contains('active') ? '&times;' : '&#9776;';
+    });
+
+    // Balloons
+    const balloonContainer = document.getElementById('balloon-container');
+    const colors = ['rgba(255, 122, 0, 0.5)', 'rgba(255,255,255,0.5)'];
+    const aboutSection = document.getElementById('about');
+
+    function createBalloon() {
+      if (window.scrollY > aboutSection.offsetTop) return;
+      const balloon = document.createElement('div');
+      balloon.classList.add('balloon');
+      balloon.style.left = Math.random() * 100 + 'vw';
+      const size = 6 + Math.random() * 8;
+      balloon.style.width = size + 'px';
+      balloon.style.height = size + 'px';
+      balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
+      balloon.style.animationDuration = 6 + Math.random() * 6 + 's';
+      balloonContainer.appendChild(balloon);
+      setTimeout(() => balloon.remove(), 12000);
+    }
+
+    const balloonInterval = setInterval(createBalloon, 300);
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > aboutSection.offsetTop) clearInterval(balloonInterval);
+    });
+  </script>
+
+<script>
+function openModal(name, about, image) {
+    document.getElementById("modalImage").src = image;
+    document.getElementById("modalName").innerText = name;
+    const aboutEl = document.getElementById("modalAbout");
+    aboutEl.innerText = about;
+    aboutEl.style.textAlign = "justify";
+
+    document.getElementById("profileModal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("profileModal").style.display = "none";
+}
+
+window.onclick = function(event) {
+    let modal = document.getElementById("profileModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+<div id="cookie-banner" class="cookie-banner">
+
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="{% static 'js/script.js' %}"></script>
+
+
+</script>
+</body>
+</html>

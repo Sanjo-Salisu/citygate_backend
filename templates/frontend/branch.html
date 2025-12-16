@@ -1,0 +1,323 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citygate Global Limited</title>
+
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: var(--dark);
+      color: var(--light);
+      overflow-x: hidden;
+    }
+
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 122, 0, 0.95);
+    padding: 1rem 5%;
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
+  nav ul {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  nav ul li a {
+    color: var(--light);
+    text-decoration: none;
+    font-size: large;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
+    color: white;
+  }
+  nav ul li.getloan a {
+    color: white;
+    border: 2px solid orange;
+    border-radius: 50px;
+    padding: 0.3rem 1rem;
+    display: block;
+    transition: all 0.3s ease;
+  }
+  nav ul li.getloan a:hover {
+    background: var(--dark);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-color: var(--dark);
+  }
+  nav ul li:not(.getloan) a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background: white;
+    transition: width 0.3s ease;
+  }
+  nav ul li:not(.getloan) a:hover::after { width: 100%; }
+
+  .menu-toggle {
+    display: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1001;
+  }
+
+  /* ----------- MOBILE RESPONSIVE ----------- */
+@media(max-width: 768px) {
+  .hero-section {
+    height: auto;
+    padding: 60px 20px;
+    text-align: center;
+    background-position: center;
+    flex-direction: column;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: 32px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+}
+
+  @media(max-width: 768px) {
+    nav ul {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: var(--primary);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      padding: 0;
+      margin: 0;
+      z-index: 999;
+      transform: translateY(-100%);
+      transition: transform 0.5s ease-in-out;
+    }
+    nav ul.active { transform: translateY(0); }
+    .menu-toggle { display: block; }
+    nav ul li { width: 100%; text-align: center; }
+    nav ul li.getloan { width: 80%; }
+    nav ul li a { font-size: 1.5rem; padding: 1rem 0; }
+  }
+  .branches-wrapper {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 30px;
+  font-family: "Inter", sans-serif;
+  color: #333;
+}
+
+.page-header h1 {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 800;
+  color: #ff7a00;
+  margin-bottom: 5px;
+}
+
+.last-updated {
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.branch-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 700px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+.branch-table thead {
+  background: linear-gradient(90deg, #ff7a00, #ffb347);
+  color: #fff;
+  font-size: 16px;
+}
+
+.branch-table th, .branch-table td {
+  padding: 14px 18px;
+  text-align: left;
+}
+
+.branch-table tbody tr:nth-child(even) {
+  background-color: #fff7f0;
+}
+
+.branch-table tbody tr:hover {
+  background-color: #ffe6cc;
+  transform: scale(1.01);
+  transition: all 0.2s ease;
+}
+
+.branch-table th {
+  font-weight: 700;
+}
+
+.branch-table td {
+  font-weight: 500;
+}
+
+.page-break {
+  page-break-after: always;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .branch-table th, .branch-table td {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+    </style>
+</head>
+<body>
+<nav>
+        <div class="logo">
+        <img src="{% static 'images/citygate.png' %}" alt="ETMFB Logo">
+      </div>
+  <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+  <ul id="nav-links">
+    <li><a href="/home/">Home</a></li>
+    <li><a href="/about/">About Us</a></li>
+    <li><a href="/loan/">Loans</a></li>
+    <li><a href="https://monee.ng/">Monee</a></li>
+    <li><a href="/gallery/">Gallery</a></li>
+    <li><a href="/contact/">Contact</a></li>
+     <li><a href="/career/">Career</a></li>
+      <li><a href="/FAQ/">FAQ</a></li>
+    <li class="getloan"><a href="http://onlineloan.citygateglobal.com">Get Loan</a></li>
+  </ul>
+</nav>
+
+<main class="branches-wrapper">
+
+  <section class="page-header">
+    <h1>Citygate Global Branches</h1>
+    <p class="last-updated">Last Updated: 8 December 2025</p>
+  </section>
+
+  <!-- PAGE 1 -->
+  <section class="branches-table-section">
+    <div class="table-responsive">
+      <table class="branch-table">
+        <thead>
+          <tr>
+            <th>S/No</th>
+            <th>Branch</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Abeokuta</td><td>Sarphilus building, opposite Imo Methodist Primary School, Oke-Yeke, Abeokuta, Ogun State</td><td>08032594780</td></tr>
+          <tr><td>2</td><td>Abuja</td><td>Nigeria Re-insurance Building, 2nd floor wing B, Central Business District, Abuja</td><td>08068142768</td></tr>
+          <tr><td>3</td><td>Akure</td><td>2nd Floor Bank of Industry Building, Alagbaka, Akure</td><td>08137169702</td></tr>
+          <tr><td>4</td><td>Asaba</td><td>308 Nnebisi Road, Asaba by Uzonia House</td><td>08067372955</td></tr>
+          <tr><td>5</td><td>Benin</td><td>2nd Floor Boroni Building, Opp Stanbic IBTC, Benin City, Edo State</td><td>08054042822</td></tr>
+          <tr><td>6</td><td>Calabar</td><td>No 45 Muritala Highway, Calabar</td><td>08037632843</td></tr>
+          <tr><td>7</td><td>Ekiti</td><td>Tolu Parked Building, Similoluwa Street, Teaching Hospital Road, Ado-Ekiti</td><td>08038194192</td></tr>
+          <tr><td>8</td><td>Enugu</td><td>Plot 118 Ogui Road, Beside ABC Transport, Enugu</td><td>08038308195</td></tr>
+          <tr><td>9</td><td>Ibadan</td><td>7th Floor, Cocoa House Building, Ibadan, Oyo State</td><td>08132618598</td></tr>
+          <tr><td>10</td><td>Ijebu-Ode</td><td>59 Odo-Egbo Street, Ijebu-Ode, Ogun State</td><td>08034629796</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="page-break"></div>
+
+  <!-- PAGE 2 -->
+  <section class="branches-table-section">
+    <div class="table-responsive">
+      <table class="branch-table">
+        <thead>
+          <tr>
+            <th>S/No</th>
+            <th>Branch</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Ilorin</td><td>10 Unity Road, Ilorin, Kwara State</td><td>08134782974</td></tr>
+          <tr><td>2</td><td>Jos</td><td>No 28/30 Bukuru Bye Pass, Off British American Fly-Over, Opp Nipost Office, Jos</td><td>07081682700, 07062299111</td></tr>
+          <tr><td>3</td><td>Kaduna</td><td>Hamza Zayyad House, 6th floor Ahmadu Bello Way, Kaduna</td><td>08062695637</td></tr>
+          <tr><td>4</td><td>Kano</td><td>Turai Plaza, Suite 14/15B Audu Bako Way, Nassarawa GRA, Beside 9mobile office, Kano</td><td>08061574718</td></tr>
+          <tr><td>5</td><td>Lafia</td><td>Block B, Almakura Plaza, Beside Presidential Lodge, GRA, Shendam Road, Lafia, Nasarawa State</td><td>08069272051</td></tr>
+          <tr><td>6</td><td>Lagos</td><td>35 Oba Akran Avenue, Ikeja, Lagos</td><td>09099252901</td></tr>
+          <tr><td>7</td><td>Lokoja</td><td>1st Floor Equity Plaza, Lokongoma, Phase 1, Lokoja, Kogi State</td><td>07034568250</td></tr>
+          <tr><td>8</td><td>Minna</td><td>Upper floor, Thermocool Showroom, Off Mobile Roundabout, Bosso Road, Minna, Niger State</td><td>08035746280</td></tr>
+          <tr><td>9</td><td>Ondo</td><td>Plot 3-5, Chief Adeleke Layout, Adjacent Adeyemi Ondo/Ore Bypass, Ondo, Ondo State</td><td>07030128554</td></tr>
+          <tr><td>10</td><td>Osogbo</td><td>Jesus Court Building, Beside First Bank, Okefia, Osogbo, Osun State</td><td>08068417713</td></tr>
+          <tr><td>11</td><td>Owerri</td><td>No 8 Onumonu Street, By Cherubim Junction, Off Federal Road</td><td>07061901614</td></tr>
+          <tr><td>12</td><td>Port Harcourt</td><td>No 57 Uyo Street, Off Stadium Road, By Save A Live</td><td>07031256882</td></tr>
+          <tr><td>13</td><td>Sango Ota</td><td>106 Ilo Awela Tollgate Road, Opposite Swift Oil Filling Station, Sango Ota</td><td>08062079721</td></tr>
+          <tr><td>14</td><td>Umuahia</td><td>38 Cameroon Street, By Niger, Umuahia, Abia State</td><td>08132852345</td></tr>
+          <tr><td>15</td><td>Uyo</td><td>No 1 Udoduma, Beside AKBC, Uyo, Akwa Ibom State</td><td>08106232226</td></tr>
+          <tr><td>16</td><td>Warri</td><td>No 4 Okumagba Avenue, Beside UBA Warri</td><td>08165040505</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('nav-links');
+  menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+  menuToggle.innerHTML = navLinks.classList.contains('active') ? '&times;' : '&#9776;';
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,634 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citygate Global Limited</title>
+    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+    <style>
+       /* Ensure full width on mobile */
+body, html {
+  width: 100%;
+  overflow-x: hidden; /* prevent horizontal scroll */
+}
+
+/* Force sections to respect viewport */
+section, header, .hero-section, .about-text, .about-image, .loan-gallery, iframe, video {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+@media only screen and (max-width: 768px) {
+  .logo img {
+    height: 50px !important; /* force override */
+  }
+}
+/* Responsive grids */
+.loan-gallery {
+  grid-template-columns: 1fr !important; /* single column on mobile */
+}
+
+/* Remove extra padding/margin on mobile */
+@media (max-width: 768px) {
+  section, .hero-section, .about-text, .about-image {
+    padding: 20px !important;
+    margin: 0 auto !important;
+  }
+
+  iframe, video, img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  
+  .loan-gallery {
+    grid-template-columns: 1fr !important;
+  }
+}
+         :root {
+    --primary: #ff7a00;
+    --light: #ffffff;
+    --dark: #1a1a1a;
+    --gray: #f5f5f5;
+  }
+
+  /* Fade-in animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px); /* small upward movement */
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--light);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+      header {
+      position: relative;
+      text-align: center;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(81, 81, 81, 0.733)), 
+      url("{% static 'images/family.jpg'%}") no-repeat center/cover;
+      height: 70vh;
+      overflow: hidden;
+    }
+  a { color: inherit; text-decoration: none; }
+
+  /* Balloons */
+  #balloon-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .balloon {
+    position: absolute;
+    bottom: -20px;
+    border-radius: 50%;
+    animation: floatUp linear infinite;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 0.7; }
+    100% { transform: translateY(-110vh) scale(1); opacity: 0; }
+  }
+
+  /* Navbar */
+      .logo img {
+      height: 40px;
+      width: auto;
+    }
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 122, 0, 0.95);
+    padding: 1rem 5%;
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .logo { font-size: 1.8rem; font-weight: 700; color: var(--light); }
+  nav ul {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  nav ul li a {
+    color: var(--light);
+    text-decoration: none;
+    font-size: large;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  nav ul li.getloan a {
+    color: white;
+    border: 2px solid orange;
+    border-radius: 50px;
+    padding: 0.3rem 1rem;
+    display: block;
+    transition: all 0.3s ease;
+  }
+  nav ul li.getloan a:hover {
+    background: var(--dark);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-color: var(--dark);
+  }
+  nav ul li:not(.getloan) a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background: white;
+    transition: width 0.3s ease;
+  }
+  nav ul li:not(.getloan) a:hover::after { width: 100%; }
+
+  .menu-toggle {
+    display: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1001;
+  }
+
+ .hero {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--light);
+      text-align: center;
+      z-index: 2;
+    }
+
+    .hero h2 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+    }
+
+.hero-gallery {
+  position: relative;
+  background: url('images/Ourgallery.png') center/cover no-repeat;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--light);
+}
+
+.hero-gallery .hero-overlay {
+  background: rgba(180, 180, 180, 0.55);
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.hero-gallery span {
+  color: var(--primary);
+}
+
+.hero-gallery .hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  padding: 2rem;
+  max-width: 700px;
+}
+
+.hero-gallery h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.hero-gallery p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* ===== SECTION STYLES ===== */
+
+.gallery-section {
+  padding: 4rem 8%;
+  text-align: center;
+  background: linear-gradient(120deg, #fff7f0, #fff);
+}
+.gallery-video {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(255, 106, 0, 0.15);
+}
+
+.gallery-video video {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.gallery-section.alt-bg {
+  background: #fafafa;
+}
+
+.gallery-section h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.gallery-section p {
+  max-width: 900px;
+  margin: 0 auto 2.5rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* ===== GRID STYLES ===== */
+.gallery-grid {
+  display: grid;
+  gap: 3rem;
+}
+
+.gallery-grid.three-cols {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.gallery-grid.four-cols {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.gallery-grid img {
+  width: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+  height: 200px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-grid img:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 30px rgba(255, 106, 0, 0.2);
+}
+
+figure {
+  margin: 0;
+}
+
+figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.gallery-divider {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: #fafafa;
+  color: #333;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+/* ===== LIGHTBOX STYLES ===== */
+.lightbox {
+  display: none;
+  position: fixed;
+  z-index: 1200;
+  inset: 0; /* top:0; right:0; bottom:0; left:0; */
+  background: rgba(0,0,0,0.9);
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.lightbox.show {
+  display: flex;
+}
+
+.lightbox-img {
+  max-width: 92%;
+  max-height: 80%;
+  border-radius: 8px;
+  object-fit: contain;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+
+/* Controls */
+.lb-close,
+.lb-prev,
+.lb-next {
+  position: absolute;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.25rem 0.6rem;
+  line-height: 1;
+  transition: color 0.2s ease, transform 0.15s ease;
+  user-select: none;
+}
+
+.lb-close { top: 18px; right: 30px; font-size: 2.2rem; }
+.lb-prev { left: 20px; top: 50%; transform: translateY(-50%); font-size: 2.6rem; }
+.lb-next { right: 20px; top: 50%; transform: translateY(-50%); font-size: 2.6rem; }
+
+.lb-close:hover {
+  color: var(--primary);
+  transform: scale(1.05);
+}
+.lb-prev:hover,
+.lb-next:hover {
+  color: var(--primary);
+  transform: translateY(-50%) scale(1.05);
+}
+
+    .hero-gallery {
+      position: relative;
+      background: url("{% static 'frontend/images/Ourgallery.png' %}") center/cover no-repeat;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .gallery-item h4 {
+      margin: 0.5rem 0 0.2rem;
+      font-size: 1rem;
+    }
+    .gallery-item p {
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+  /* ----------- MOBILE RESPONSIVE ----------- */
+@media(max-width: 768px) {
+  .hero-section {
+    height: auto;
+    padding: 60px 20px;
+    text-align: center;
+    background-position: center;
+    flex-direction: column;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: 32px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+}
+
+  @media(max-width: 768px) {
+    nav ul {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: var(--primary);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      padding: 0;
+      margin: 0;
+      z-index: 999;
+      transform: translateY(-100%);
+      transition: transform 0.5s ease-in-out;
+    }
+    nav ul.active { transform: translateY(0); }
+    .menu-toggle { display: block; }
+    nav ul li { width: 100%; text-align: center; }
+    nav ul li.getloan { width: 80%; }
+    nav ul li a { font-size: 1.5rem; padding: 1rem 0; }
+  }
+  
+/* Small screens */
+@media (max-width: 700px) {
+  .lb-prev, .lb-next { font-size: 1.8rem; left: 8px; right: 8px; }
+  .lb-close { right: 14px; top: 14px; font-size: 1.8rem; }
+  .lightbox-img { max-height: 70%; }
+}
+
+
+  @media(max-width: 768px) {
+    nav ul {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: var(--primary);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      padding: 0;
+      margin: 0;
+      z-index: 999;
+      transform: translateY(-100%);
+      transition: transform 0.5s ease-in-out;
+    }
+}  
+
+    /* Footer */
+    footer {
+      background: rgba(255, 122, 0, 0.95);
+      text-align: center;
+      padding: 30px 10px;
+      color: var(--light);
+      font-size: 0.9rem;
+    }
+
+    footer p {
+      margin-top: 5px;
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
+    footer .credit {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 5px;
+    }
+
+    </style>
+</head>
+<body>
+
+    
+<div id="balloon-container"></div>
+
+<nav>
+        <div class="logo">
+        <img src="{% static 'images/citygate.png' %}" alt="ETMFB Logo">
+      </div>
+  <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+  <ul id="nav-links">
+    <li><a href="/home/">Home</a></li>
+    <li><a href="/about/">About Us</a></li>
+    <li><a href="/loan/">Loans</a></li>
+    <li><a href="https://monee.ng/">Monee</a></li>
+    <li><a href="/gallery/">Gallery</a></li>
+    <li><a href="/contact/">Contact</a></li>
+     <li><a href="/career/">Career</a></li>
+      <li><a href="/FAQ/">FAQ</a></li>
+    <li class="getloan"><a href="http://onlineloan.citygateglobal.com">Get Loan</a></li>
+  </ul>
+</nav>
+
+  <header>
+    <div class="hero">
+      <h2>Our Gallery</h2>
+      <p>A collection of moments that showcase our commitment to trust, service, and positive impact in every community we serve.</p>
+    </div>
+  </header>
+
+  <section class="gallery-section">
+    <h2 class="section-title">Our People, Our Strength</h2> 
+    <p>At citygate, our people are at the heart of everything we do — their passion, dedication, and integrity drive our mission to serve every customer with excellence.</p>
+  
+    <div class="gallery-grid three-cols">
+<div class="gallery-grid">
+  {% for img in first_section_images %}
+    <div class="gallery-item">
+      <img src="{{ img.image.url }}" alt="{{ img.title }}">
+     
+
+    </div>
+  {% empty %}
+    <p>No images in this section yet.</p>
+  {% endfor %}
+</div>
+
+    </div>
+  </section>
+
+  
+ 
+  <section class="gallery-section alt-bg">
+    <h2 class="section-title">Customer Service Week</h2>
+    <p>Customer Service Week reminds us of the power of empathy, excellence, and connection in everything we do. Your satisfaction remains our top priority.</p>
+  
+    <!-- Video added here -->
+    <div class="gallery-video">
+      <video controls loop>
+        <source src="{% static 'frontend/Video/customerserviceweekvid2.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  
+    <div class="gallery-grid four-cols">
+<div class="gallery-grid">
+  {% for img in second_section_images %}
+    <div class="gallery-item">
+      <img src="{{ img.image.url }}" alt="{{ img.title }}">
+   
+
+    </div>
+  {% empty %}
+    <p>No images in this section yet.</p>
+  {% endfor %}
+</div>
+
+ 
+    </div>
+  </section>
+  
+  
+  <section class="gallery-section">
+    <h2 class="section-title">CityGate in Action</h2>
+    <p>From customer appreciation events to financial literacy workshops, we continue to make an impact every day.</p>
+  
+    <div class="gallery-grid four-cols">
+<div class="gallery-grid">
+  {% for img in third_section_images %}
+    <div class="gallery-item">
+      <img src="{{ img.image.url }}" alt="{{ img.title }}">
+   
+ 
+    </div>
+  {% empty %}
+    <p>No images in this section yet.</p>
+  {% endfor %}
+</div>
+    </div>
+  </section>
+  
+  <footer>
+    <h3>Citygate Globalk</h3>
+    <p>© 2025 Citygate Global, All Rights Reserved.</p>
+  </footer>
+
+  <script>
+      const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('nav-links');
+  menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+  menuToggle.innerHTML = navLinks.classList.contains('active') ? '&times;' : '&#9776;';
+  });
+  </script>
+</body>
+</html>
+

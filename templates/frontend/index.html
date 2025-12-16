@@ -1,0 +1,1547 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citygate Global Limited</title>
+<link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+<style>
+  /* Ensure full width on mobile */
+body, html {
+  width: 100%;
+  overflow-x: hidden; /* prevent horizontal scroll */
+}
+
+/* Force sections to respect viewport */
+section, header, .hero-section, .about-text, .about-image, .loan-gallery, iframe, video {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+@media only screen and (max-width: 768px) {
+  .logo img {
+    height: 50px !important; /* force override */
+  }
+}
+
+/* Remove extra padding/margin on mobile */
+@media (max-width: 768px) {
+  section, .hero-section, .about-text, .about-image {
+    padding: 20px !important;
+    margin: 0 auto !important;
+  }
+
+  .loan-gallery {
+  grid-template-columns: 1fr !important; /* single column on mobile */
+}
+
+  iframe, video, img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  
+  .loan-gallery {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+  :root {
+    --primary: #ff7a00;
+    --light: #ffffff;
+    --dark: #1a1a1a;
+    --gray: #f5f5f5;
+  }
+
+/* Default: Hidden */
+#cookie-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: #233534ed;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(30px);
+  transition: all .4s ease;
+  z-index: 999999; /* Make sure it's on top */
+}
+
+/* When .show is added → Banner becomes visible */
+#cookie-banner.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+
+.cookie-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.cookie-content p {
+  flex: 1.5;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #ddd;
+}
+
+.cookie-link {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.cookie-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.cookie-btn {
+  border: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.cookie-btn.accept {
+  background: var(--primary);
+  color: #fff;
+}
+
+.cookie-btn.accept:hover {
+  background: #ff7800;
+}
+
+.cookie-btn.decline {
+  background: transparent;
+  border: 1px solid #ccc;
+  color: #fff;
+}
+
+.cookie-btn.decline:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cookie-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cookie-buttons {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+/* =========================================
+   COOKIE POLICY PAGE STYLING - MODERNIZED
+========================================= */
+.cookie-policy {
+  padding: 6rem 6%;
+  margin: 0 auto;
+  line-height: 1.8;
+  color: #333;
+  font-family: 'Poppins', sans-serif;
+  max-width: 1500px;
+}
+
+.cookie-policy h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 2rem;
+  color: var(--dark);
+  text-align: center;
+  font-weight: 700;
+}
+
+.cookie-policy h2 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+  border-left: 4px solid var(--primary);
+  padding-left: 0.8rem;
+  font-weight: 600;
+}
+
+.cookie-policy p {
+  margin-bottom: 1.8rem;
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  color: #555;
+}
+
+.cookie-policy ul {
+  margin-left: 1.5rem;
+  margin-bottom: 2rem;
+  list-style: disc;
+}
+
+.cookie-policy ul li {
+  margin-bottom: 1rem;
+  padding-left: 0.5rem;
+  font-size: 1rem;
+  color: #555;
+}
+
+.cookie-policy a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-bottom: 1px dotted var(--primary);
+}
+
+.cookie-policy a:hover {
+  color: var(--secondary);
+  border-bottom: 1px solid var(--secondary);
+}
+
+/* Optional: make the first paragraph slightly more prominent */
+.cookie-policy p:first-of-type {
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: #444;
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  .cookie-policy {
+    padding: 4rem 5%;
+  }
+
+  .cookie-policy h1 {
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+  }
+
+  .cookie-policy h2 {
+    font-size: clamp(1.3rem, 4vw, 2rem);
+  }
+
+  .cookie-policy p,
+  .cookie-policy ul li {
+    font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+  }
+}
+  /* Fade-in animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px); /* small upward movement */
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--light);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* Balloons */
+  #balloon-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .balloon {
+    position: absolute;
+    bottom: -20px;
+    border-radius: 50%;
+    animation: floatUp linear infinite;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 0.7; }
+    100% { transform: translateY(-110vh) scale(1); opacity: 0; }
+  }
+
+  /* Navbar */
+      .logo img {
+      height: 40px;
+      width: auto;
+    }
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 122, 0, 0.95);
+    padding: 1rem 5%;
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .logo { font-size: 1.8rem; font-weight: 700; color: var(--light); }
+  nav ul {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  nav ul li a {
+    color: var(--light);
+    text-decoration: none;
+    font-size: large;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  nav ul li.getloan a {
+    color: white;
+    border: 2px solid orange;
+    border-radius: 50px;
+    padding: 0.3rem 1rem;
+    display: block;
+    transition: all 0.3s ease;
+  }
+  nav ul li.getloan a:hover {
+    background: var(--dark);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-color: var(--dark);
+  }
+  nav ul li:not(.getloan) a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background: white;
+    transition: width 0.3s ease;
+  }
+  nav ul li:not(.getloan) a:hover::after { width: 100%; }
+
+  .menu-toggle {
+    display: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1001;
+  }
+
+/* HERO SECTION */
+.hero-section {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  padding: 40px;
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+
+
+/* LEFT CONTENT */
+.hero-content {
+  max-width: 550px;
+  color: #fff;
+  text-align: left;
+   margin-top: 10%;
+    margin-left: 5%;
+}
+
+.hero-content h1 {
+ 
+  font-size: 48px;
+  line-height: 1.2;
+}
+
+.hero-content h1 span {
+  color: #ff7a00; /* your orange tone */
+}
+
+.hero-content p {
+  margin-top: 15px;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.hero-buttons {
+  margin-top: 25px;
+  display: flex;
+  gap: 15px;
+}
+
+.btn-primary,
+.btn-outline {
+  padding: 14px 40px;
+  border-radius: 50px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-primary {
+  background: #ff7a00;
+  color: white;
+  border-radius: 50px;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+.btn-outline:hover {
+  background: #ff7a00;
+  border-color: #ff7a00;
+  color: white;
+}
+
+/* ----------- MOBILE RESPONSIVE ----------- */
+@media(max-width: 768px) {
+  .hero-section {
+    height: auto;
+    padding: 60px 20px;
+    text-align: center;
+    background-position: center;
+    flex-direction: column;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: 32px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+}
+
+  @media(max-width: 768px) {
+    nav ul {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: var(--primary);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      padding: 0;
+      margin: 0;
+      z-index: 999;
+      transform: translateY(-100%);
+      transition: transform 0.5s ease-in-out;
+    }
+    nav ul.active { transform: translateY(0); }
+    .menu-toggle { display: block; }
+    nav ul li { width: 100%; text-align: center; }
+    nav ul li.getloan { width: 80%; }
+    nav ul li a { font-size: 1.5rem; padding: 1rem 0; }
+  }
+
+  /* Main orange comment-style block */
+#easy-loan-steps {
+  background: #ff8c00;
+  padding: 50px 40px;
+  border-radius: 15px;
+  max-width: 1100px;
+  margin: 50px auto;
+  position: relative;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* Speech-bubble tail */
+#easy-loan-steps::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;          /* distance under the box */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0; 
+  height: 0;
+  border-left: 20px solid transparent; 
+  border-right: 20px solid transparent;
+  border-top: 20px solid #ff8c00; /* tail color matches box */
+}
+
+/* White text for visibility */
+#easy-loan-steps h2,
+#easy-loan-steps p,
+.loan-caption,
+.btn-container .btn a {
+  color: #fff;
+  text-align: center;
+}
+#easy-loan-steps .loan-text {
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+
+/* Header styling */
+#easy-loan-steps h2 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+/* Center small text */
+#easy-loan-steps p {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 16px;
+}
+
+/* Button */
+
+.btn-container .btn {
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+}
+
+  
+.btn-container .btn a {
+
+  font-weight: bold;
+}
+
+/* Gallery */
+.loan-gallery {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.loan-item img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 3px solid white;
+}
+
+.loan-caption {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: black;
+}
+
+  /* Header */
+      header {
+      position: relative;
+      text-align: center;
+      background: linear-gradient(rgba(119, 119, 119, 0.096), rgba(0, 0, 0, 0.128)), url("{% static 'images/web.png'%}") no-repeat center/cover;
+      height: 110vh;
+      overflow: hidden;
+    }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    margin-top: 70px;
+  }
+  .future { color: var(--primary); }
+  .header-container {
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    max-width:1200px;
+    gap:2rem;
+    padding:2rem;
+    position:relative;
+    z-index:2;
+  }
+  .header-text { z-index:2; text-align:left; color:black; flex:1; }
+  .header-text h1 { font-size:clamp(1.5rem,4vw,2rem); margin-bottom:0.8rem; font-size: 50px; }
+  .header-text p { font-size:clamp(0.9rem,2.2vw,1.1rem); line-height:1.5; margin-bottom:1rem; }
+  .btn {
+    padding:0.7rem 2rem;
+    font-size:clamp(0.8rem,2vw,1rem);
+    border-radius:30px;
+    margin-top: 1.5rem;
+    border:none;
+    cursor:pointer;
+    background:var(--primary);
+    color:white;
+    transition:all 0.3s ease;
+  }
+  
+  .btn:hover { background:var(--dark); transform:scale(1.05); }
+  .header-image-container { flex:1; overflow:hidden; }
+  .header-image { width:100%; height:auto; object-fit:cover; display:block; }
+
+  /* Sections */
+  section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 10rem 8%;
+    flex-wrap: wrap;
+  }
+  
+    /* About */
+.about-text {
+  text-align: justify;
+}
+.about-image {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-image video {
+  width: 90%;               /* Make video smaller */
+  max-width: 500px;         /* Prevent it from stretching too big */
+  border: 4px; /* Orange border */
+  border-radius: 10px;
+  transition: 0.3s ease;    /* Smooth animation */
+  padding: 5px;
+  background: #fff;         /* Background inside border */
+}
+
+.about-image video:hover {
+  background: #ff7300;      /* Orange background hover */
+  transform: scale(1.02);   /* Slight zoom on hover */
+  cursor: pointer;
+}
+
+  .about-text { flex: 1; min-width: 280px; }
+  .about-image { flex: 1; min-width: 280px; text-align: center; }
+  .about-image img, .about-image iframe { width: 100%; max-width: 400px; border-radius: 15px; }
+  section h2 { color: var(--primary); font-size: 2rem; margin-bottom: 1rem; }
+  section p { color: #444; font-size: 1rem; line-height: 1.6; }
+  .btn-container { margin-top: 1.5rem; }
+  section:nth-child(even) { background: var(--gray); }
+
+  /* Loan Section */
+
+    .loan-item.active {
+    
+    box-shadow:0 0 10px rgba(255, 102, 0, 0.6);
+    border:2px solid orange;
+    transform:scale(1.03);
+  }
+  .loan-item:hover {
+    transform:scale(1.02);
+  }
+
+  #easy-loan-steps {
+  padding: 40px;
+  background: #ff8c00;
+}
+
+#easy-loan-steps .loan-text {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#easy-loan-steps .loan-text h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+#easy-loan-steps .loan-text p {
+  font-size: 18px;
+  color: #fff;
+}
+
+#easy-loan-steps .loan-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+#easy-loan-steps .loan-item {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#easy-loan-steps .loan-item img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+#easy-loan-steps .loan-caption {
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+#easy-loan-steps .loan-item:hover {
+  transform: scale(1.02);
+}
+
+#easy-loan-steps .loan-item.active {
+  box-shadow: 0 0 10px rgba(255, 102, 0, 0.6);
+  border: 2px solid orange;
+  transform: scale(1.03);
+}
+ 
+  /* Gallery Section */
+
+  #gallery {
+  margin-top: 60px;
+}
+
+#gallery h2 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #111;
+}
+
+/* Hide overflow */
+.gallery-track-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Horizontal scroll (Same animation already used) */
+.gallery-track {
+  display: flex;
+  gap: 25px;
+  padding: 10px 0;
+}
+
+/* Testimonial Cards */
+.testimonial-card {
+  min-width: 280px;
+  max-width: 300px;
+  background: white;
+  padding: 22px;
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+}
+
+.stars {
+  font-size: 18px;
+  color: #f5c518; /* gold yellow */
+  margin-bottom: 12px;
+}
+
+.comment {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 15px;
+}
+
+.client-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+}
+.gallery-track {
+  display: flex;
+  gap: 25px;
+  padding: 10px 0;
+  animation: scroll 25s linear infinite;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+  #gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    padding: 4rem 2%;
+    background: var(--gray);
+  }
+
+
+  /* Contact */
+  #contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 8rem 8%;
+  flex-wrap: wrap;
+}
+
+#contact .about-text {
+  flex: 1;
+  min-width: 280px;
+}
+
+#contact .about-text h2 {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+#contact .about-text p {
+  color: white;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+}
+
+#contact .btn-container {
+  margin-top: 1.5rem;
+}
+
+#contact .about-image {
+  flex: 1;
+  min-width: 280px;
+  text-align: center;
+}
+
+#contact .about-image img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 15px;
+}
+
+/* Footer */
+.footer {
+  background-color: #ff7a00;
+  color: #fff;
+  padding: 4rem 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+.mission{
+  margin-top: 3.5rem;
+}
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 250px;
+}
+
+.footer-column h4 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.footer-column p {
+  margin-bottom: 0.8rem;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-column ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+  color: #1a1a1a;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.social-icons a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #1a1a1a;
+}
+
+/* Footer Wrapper */
+.footer {
+  background: #385557a8; /* ash color */
+  padding: 60px 40px;
+  border-radius: 40px;
+  margin: 40px auto;
+  max-width: 1400px;
+  font-family: "Inter", sans-serif;
+  box-sizing: border-box; /* ensures padding is included in width */
+}
+
+/* Flex container */
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: flex-start; /* ensures columns align at top */
+}
+
+/* Footer columns */
+.footer-column {
+  flex: 1 1 220px; /* flexible width with a min of 220px */
+  color: black;
+  min-width: 200px; /* prevents too small columns */
+}
+
+/* About Column (large text left) */
+.footer-column h1 {
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  color: #111;
+}
+
+.footer-column .mission {
+  font-size: 16px;
+  max-width: 400px;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* Section titles */
+.footer-column h4 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Navigation list */
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 10px;
+}
+
+.footer-column a {
+  color: #111;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.footer-column a:hover {
+  opacity: 0.6;
+}
+
+/* Contact Info */
+.footer-column p {
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+/* Social Icons */
+.social-icons a {
+  display: inline-block;
+  margin-right: 15px;
+  text-decoration: none;
+  color: #111;
+  font-size: 16px;
+}
+
+.social-icons a:hover {
+  opacity: 0.6;
+}
+
+/* Bottom section */
+.footer-bottom {
+  text-align: center;
+  padding-top: 40px;
+  font-size: 14px;
+  color: #444;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .footer-container {
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .footer-column h1 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 40px 20px;
+    border-radius: 20px;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-column {
+    max-width: 100%;
+  }
+
+  .footer-column h1 {
+    font-size: 28px;
+  }
+}
+
+ /* Balloons */
+    #balloon-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -10px;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: float 10s linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0) rotate(0deg); }
+      to { transform: translateY(-120vh) rotate(360deg); }
+    }
+
+/* Make layout responsive */
+@media (max-width: 900px) {
+  .footer-container {
+    flex-direction: column;
+  }
+
+  .footer-column h1 {
+    font-size: 36px;
+  }
+}
+
+/* Subscribe Form */
+.subscribe-form {
+  margin-top: 25px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.subscribe-form input {
+  padding: 14px 18px;
+  width: 260px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  background: white;
+}
+
+.subscribe-form button {
+  padding: 14px 28px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  background: #b4ff94; /* soft green like screenshot */
+  font-weight: 600;
+}
+
+.subscribe-form button:hover {
+  opacity: 0.9;
+}
+
+
+/* Responsive adjustments for mobile header */
+  @media(max-width:768px) {
+    header{background: linear-gradient(rgba(119, 119, 119, 0.628), rgba(0, 0, 0, 0.765)), url("{% static 'images/newmobile.png'%}") no-repeat center/cover;}
+    header, #about, #loans, #monee, #locality, #easy-loan-steps, #why-choose { flex-direction: column; text-align: center; }
+    .about-text, .loan-text, .about-image { text-align: center; }
+    .loan-gallery { justify-content: center; }
+    .loan-item img { width: 80%; }
+    .about-image img, .about-image iframe { max-width: 80%; }
+    .gallery-track img { width: 70%; height: auto; }
+    .gallery-track { animation: scrollLeft 15s linear infinite; width: max-content; }
+    .footer-container {flex-direction: column; text-align: center; }
+    .social-icons {
+    justify-content: center;  }
+    #contact {flex-direction: column; text-align: center;}
+    #contact .about-text,
+    #contact .about-image {text-align: center;}
+    #contact .about-image img {max-width: 80%;}}
+</style>
+</head>
+<body>
+
+<div id="balloon-container"></div>
+
+<nav>
+      <div class="logo">
+        <img src="{% static 'images/citygate.png' %}" alt="CTFI Logo">
+      </div>
+  
+  </div>
+  <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+  <ul id="nav-links">
+    <li><a href="/home/">Home</a></li>
+    <li><a href="/about/">About Us</a></li>
+    <li><a href="/loan/">Loans</a></li>
+    <li><a href="https://monee.ng/" target="_blank">Monee</a></li>
+    <li><a href="/gallery/">Gallery</a></li>
+    <li><a href="/contact/">Contact</a></li>
+     <li><a href="/career/">Career</a></li>
+      <li><a href="/FAQ/">FAQ</a></li>
+    <li class="getloan" target="_blank"><a href="http://onlineloan.citygateglobal.com" target="_blank">Get Loan</a></li>
+  </ul>
+</nav>
+
+<header id="home" class="fade-in">
+<div class="hero-section">
+  <div class="hero-content">
+    <h1>Unlock Opportunities<span> with Quick, Trusted Loans</span></h1>
+    <p>
+      Smart banking. Fast loans. Trusted financial growth through savings and
+      investment with <strong>Citygate Global Investment Limited.</strong>
+    </p>
+
+    <div class="hero-buttons">
+      <a href="/loan/"><button class="btn-primary">Get Started</button></a>
+      <a href="/about/"><button class="btn-outline">Learn More</button></a>
+    </div>
+  </div>
+</div>
+
+
+</header>
+
+<section id="about" class="fade-in">
+  <div class="about-text">
+    <h2>About Us</h2>
+    <p>Citygate Global Investment Ltd is an organization founded in June 2007 to engage in finance business (Microfinance) and registered with the Corporate Affairs Commission (CAC). We provide individuals and businesses with tailored financial services that drive growth and stability.</p>
+  </div>
+  <div class="about-image">
+   <video autoplay muted loop width="100%">
+    <source src="{% static 'frontend/video/about.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+ 
+  </div>
+</section>
+
+
+
+<section id="loans" class="fade-in" style="padding:40px; background:#ffffff;">
+  <div class="loan-text" style="text-align:center; margin-bottom:30px;">
+    <h2 style="font-size:32px; font-weight:700; margin-bottom:10px;">Loan Options</h2> <br>
+    <p style="font-size:18px; color:#555; margin-top: 10px;">Our loan packages are designed to help you achieve your financial goals. Enjoy flexible terms, low rates, and instant approval with CityGate Global.</p>
+  </div>
+
+  <div class="loan-gallery" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:20px;">
+
+    <div class="loan-item" onclick="this.classList.toggle('active')" style="background:white; padding:20px; border-radius:12px; text-align:center; cursor:pointer; transition:0.3s;">
+   <video autoplay muted loop width="100%">
+    <source src="{% static 'frontend/video/p1.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+      <div class="loan-caption" style="margin-top:10px; font-weight:600;">PAYDAY LOAN</div>
+    </div>
+
+    <div class="loan-item" onclick="this.classList.toggle('active')" style="background:white; padding:20px; border-radius:12px; text-align:center; cursor:pointer; transition:0.3s;">
+     <video autoplay muted loop width="100%">
+    <source src="{% static 'frontend/video/p2.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>     <div class="loan-caption" style="margin-top:10px; font-weight:600;">PAYROLL LOAN</div>
+    </div>
+
+    <div class="loan-item" onclick="this.classList.toggle('active')" style="background:white; padding:20px; border-radius:12px; text-align:center; cursor:pointer; transition:0.3s;">
+      <video autoplay muted loop width="100%">
+    <source src="{% static 'frontend/video/p3.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>     <div class="loan-caption" style="margin-top:10px; font-weight:600;">SME LOAN</div>
+    </div>
+  </div>
+</section>
+
+
+<section id="monee" class="fade-in">
+  <div class="about-text">
+    <h2>Monee</h2>
+    <p>Monéé is a Mobile Loan, Savings, Investment, Bill Payment and Funds Transfer application. It enhances users' lives by providing instant financial boosts and targeted savings and investment plans.</p>
+    <div class="btn-container">
+      <button class="btn"><a href="https://monee.ng" target="_blank">Learn More</a></button>
+    </div>
+  </div>
+  <div class="about-image" class="fade-in">
+    <img src="{% static 'images/1.png'%}" alt="Monee App">
+  </div>
+</section>
+
+<section id="locality">
+  <div class="about-text">
+    <h2>CityGate in Your Locality</h2>
+    <p>Visit our branch at the Empire Building, Ikeja. Get personalized assistance and explore our financial services directly in your area.</p>
+    <div class="btn-container">
+      <button class="btn"><a href="/branch/">Branches</a></button>
+    </div>
+  </div>
+  <div class="about-image">
+    <iframe
+      width="100%"
+      height="300"
+      style="border:0; border-radius:15px;"
+      loading="lazy"
+      allowfullscreen
+      referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=CityGate+Global+Empire+Building+Ikeja+Lagos&hl=en&z=17&output=embed">
+    </iframe>
+  </div>
+</section>
+
+
+<!-- Easy Steps to Get a Loan -->
+<section id="easy-loan-steps">
+  <div class="loan-text">
+    <h2 style="text-align: center;">Easy Steps to Get a Loan</h2>
+    <p>Follow these simple steps to secure a loan quickly and conveniently with CityGate Global.</p>
+    <div class="btn-container">
+      <button class="btn" style="  text-align: center;
+  margin-bottom: 35px;"><a href="/loan/#payday">Get Loan</a></button>
+    </div>
+      <div class="loan-gallery">
+
+    <div class="loan-item" onclick="this.classList.toggle('active')">
+      <img src="{% static 'images/Apply.jpg' %}" alt="Step 1: Apply">
+      <div class="loan-caption">1. Apply</div>
+    </div>
+
+    <div class="loan-item" onclick="this.classList.toggle('active')">
+      <img src="{% static 'images/verify.jpg' %}" alt="Step 2: Verify">
+      <div class="loan-caption">2. Verify</div>
+    </div>
+
+    <div class="loan-item" onclick="this.classList.toggle('active')">
+      <img src="{% static 'images/disburse.jpg' %}" alt="Step 3: Disburse">
+      <div class="loan-caption">3. Disburse</div>
+    </div>
+
+  </div>
+  </div>
+
+
+</section> 
+
+
+<!-- New Section: Why Choose CityGate -->
+<section id="why-choose">
+  <div class="about-text">
+    <h2>Loan Calculator</h2>
+    <p>Get an estimate of the amount you can access and prepare for a smarter financial future.</p>
+    <div class="btn-container">
+      <button class="btn"><a href="/loan/#calculator">Loan Calculator</a></button>
+    </div>
+  </div>
+  <div class="about-image">
+    <img src="{%static 'images/2.png' %}" alt="Loan Calculator">
+  </div>
+</section>
+
+<section id="gallery">
+  <h2>What Clients Say About Us</h2>
+
+  <div class="gallery-track-wrapper">
+    <div class="gallery-track">
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="comment">
+          “I can recommend it to anyone Citygate to get a loan.”
+        </p>
+        <p class="client-name">— Olayide O.</p>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★☆</div>
+        <p class="comment">
+          “A place worth visiting for financial application”
+        </p>
+        <p class="client-name">— Nurudeen J.</p>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="comment">
+          “Good business environment. I felt supported all through.”
+        </p>
+        <p class="client-name">— Adebayo T.</p>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="comment">
+          “Nice place. I recommend them to friends and family.”
+        </p>
+        <p class="client-name">— Iyabo O.</p>
+      </div>
+
+      <!-- Duplicate for smooth infinite scroll -->
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="comment">
+          “Come here for your loans and investment”
+        </p>
+        <p class="client-name">— Ajomale M.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section id="contact" style="background: #ffcca3;">
+  <div class="about-text">
+    <h2>Contact Us</h2>
+    <p>Reach us via chat, email, or at any of our branches nationwide.</p>
+    <p>Visit our branch: Empire Building, Ikeja, Lagos, Nigeria</p>
+    <div class="btn-container">
+      <button class="btn" style="color: black;"><a href="/contact/#message">Get in Touch</a></button>
+    </div>
+  </div>
+  <div class="about-image">
+          <video autoplay muted loop width="80%">
+    <source src="{% static 'frontend/video/com.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+  </div>
+</section>
+
+<div style="padding: 20px;">
+<footer class="footer">
+  <div class="footer-container">
+    <!-- Column 1: About -->
+    <div class="footer-column">
+             <div class="logo" >
+        <img style="width: 40%; height: 50%;" src="{% static 'images/logo.png' %}" alt="ETMFB Logo">
+      </div>
+      <p class="mission">One-stop financial institution that improves the lives of all, providing effective and innovative financial offerings. </p> <br>
+      <form class="subscribe-form">
+    <input type="email" placeholder="Enter your email" required>
+    <button type="submit"> <a href="http://onlineloan.citygateglobal.com" target="_blank">Subscribe</a></button>
+  </form>
+    </div>
+
+    <!-- Column 2: Quick Links -->
+    <div class="footer-column">
+      <h4>Quick Links</h4>
+      <ul>
+        
+        <li><a href="/home/">Home</a></li>
+        <li><a href="/gallery/">Gallery</a></li>
+        <li><a href="/career/">Career</a></li>
+        <li><a href="/contact/">Contacts</a></li>
+        <li><a href="/Monee/">Monee</a></li>
+        <li><a href="/privacy/">Privacy Policy</a></li>
+        <li><a href="/terms/">Terms and Conditions</a></li>
+      </ul>
+    </div>
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" class="cookie-banner">
+  <div class="cookie-content">
+    <p>
+      We use cookies to improve your browsing experience, personalize content, and analyze our traffic. 
+      By clicking <strong>Accept All</strong>, you consent to our use of cookies. 
+      <a href="/terms/" class="cookie-link">Learn more</a>.
+    </p>
+    <div class="cookie-buttons">
+      <button id="acceptCookies" class="cookie-btn accept">Accept All</button>
+      <button id="declineCookies" class="cookie-btn decline">Decline</button>
+    </div>
+  </div>
+</div>
+
+    <!-- Column 3: Contact Info -->
+    <div class="footer-column">
+      <h4>Contact Info</h4>
+      <p>📞 070024894283</p>
+      <p>✉️ info@citygateglobal.com</p>
+      <p>🏢 35, Oba Akran Avenue Ikeja, Lagos</p>
+      <p>Follow us:</p>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/share/1KTNQNkFrD/?mibextid=wwXIfr">📘 Facebook</a>
+        <a href="https://x.com/empiretrustlag?s=21">✖️ Twitter</a>
+        <a href="https://www.instagram.com/empiretrustlag?igsh=MWloeGhhdGRjMDR5cA%3D%3D&utm_source=qr">📸 Instagram</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 CityGate Global. All Rights Reserved.
+  </div>
+</footer>
+</div>
+
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('nav-links');
+  menuToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    menuToggle.innerHTML = navLinks.classList.contains('active') ? '&times;' : '&#9776;';
+  });
+
+  // Balloons
+  const balloonContainer = document.getElementById('balloon-container');
+  const colors = ['rgba(255, 122, 0, 0.5)','rgba(255,255,255,0.5)'];
+  const aboutSection = document.getElementById('about');
+  function createBalloon(){
+    const balloon = document.createElement('div');
+    balloon.classList.add('balloon');
+    balloon.style.left = Math.random()*100+'vw';
+    const size = 6+Math.random()*6;
+    balloon.style.width = size+'px';
+    balloon.style.height = size+'px';
+    balloon.style.background = colors[Math.floor(Math.random()*colors.length)];
+    balloon.style.animationDuration = 6+Math.random()*6+'s';
+    balloonContainer.appendChild(balloon);
+    setTimeout(()=>balloon.remove(),12000);
+  }
+  const balloonInterval = setInterval(createBalloon,300);
+  window.addEventListener('scroll', ()=>{
+    if(window.scrollY >= aboutSection.offsetTop){
+      clearInterval(balloonInterval);
+      document.querySelectorAll('.balloon').forEach(b=>b.remove());
+    }
+  });
+</script>
+
+<script>
+  // Function to check if element is in viewport
+  function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+      rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.bottom >= 0
+    );
+  }
+
+  // Get all sections or elements you want to fade in
+  const fadeElements = document.querySelectorAll('.fade-in');
+
+  function checkFade() {
+    fadeElements.forEach(el => {
+      if (isInViewport(el)) {
+        el.classList.add('visible');
+      }
+    });
+  }
+
+  // Run on scroll and on page load
+  window.addEventListener('scroll', checkFade);
+  window.addEventListener('load', checkFade);
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const banner = document.getElementById("cookie-banner");
+  const acceptBtn = document.getElementById("acceptCookies");
+  const declineBtn = document.getElementById("declineCookies");
+
+  // Only show banner if user hasn't clicked yet
+  if (!localStorage.getItem("cookiesChoice")) {
+    setTimeout(() => banner.classList.add("show"), 1000);
+  }
+
+  // Accept button
+  acceptBtn.addEventListener("click", () => {
+    localStorage.setItem("cookiesChoice", "accepted");
+    banner.classList.remove("show");
+  });
+
+  // Decline button
+  declineBtn.addEventListener("click", () => {
+    localStorage.setItem("cookiesChoice", "declined");
+    banner.classList.remove("show");
+  });
+});
+</script>
+
+</body>
+</html>

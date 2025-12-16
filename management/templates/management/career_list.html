@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+     body {
+    font-family: "Poppins", sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 2rem;
+    color: #1a1a1a;
+  }
+  h1 {
+    color: #ff7a00;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+      /* ---- Original NAV BAR ---- */
+    nav {
+        background: #ff7a00;
+        color: white;
+        padding: 0.8rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin-left: 1rem;
+        font-weight: bold;
+    }
+.career-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #ff7a00;
+}
+
+/* Grid container for 3 cards per row */
+.career-cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+/* Career card */
+.career-card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.career-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.career-job-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+    color: #333;
+}
+
+.career-meta {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 1rem;
+}
+
+.career-duties {
+    list-style: disc inside;
+    padding-left: 0;
+    margin-bottom: 1rem;
+    color: #444;
+    line-height: 1.4;
+}
+
+.apply-note {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.delete-link {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    background-color: #ff4d4f;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.delete-link:hover {
+    background-color: #e04344;
+    transform: scale(1.05);
+}
+
+.empty-message {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #777;
+    margin-top: 2rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 1024px) {
+    .career-cards-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .career-cards-container {
+        grid-template-columns: 1fr; /* 1 card per row on mobile */
+    }
+}
+
+</style>
+<body>
+<nav>
+    <div>CityGate Management</div>
+    <div>
+        <a href="/accounts/login/">Logout</a>
+        <a href="/gallery_crud/">Home</a>
+    </div>
+</nav>
+
+<div id="career_list" class="section">
+    <h1 class="career-title">Career Listings</h1>
+
+    <div class="career-cards-container">
+        {% for job in careers %}
+        <div class="career-card">
+            <h3 class="career-job-title">{{ job.title }}</h3>
+            <p class="career-meta"><strong>Location:</strong> {{ job.location }} | <strong>Type:</strong> {{ job.job_type }}</p>
+
+            <ul class="career-duties">
+                {% for duty in job.get_duties_list %}
+                    <li>{{ duty }}</li>
+                {% endfor %}
+            </ul>
+
+            <p class="apply-note">{{ job.apply_note }}</p>
+
+            <a href="{% url 'delete_career' job.id %}" class="delete-link">Delete</a>
+        </div>
+        {% empty %}
+            <p class="empty-message">No careers added yet.</p>
+        {% endfor %}
+    </div>
+</div>
+
+
+</body>
+</html>

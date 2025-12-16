@@ -1,0 +1,402 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citygate Global Limited</title>
+<link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+<style>
+    :root {
+    --primary: #ff7a00;
+    --light: #ffffff;
+    --dark: #1a1a1a;
+    --gray: #f5f5f5;
+  }
+  body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #ffeed4c0;
+    color: #f5f5f5;
+  }
+        .logo img {
+      margin-left: 40px;    
+      height: 40px;
+      width: auto;
+    }
+     nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 122, 0, 0.95);
+    padding: -1rem 5%;
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .logo { font-size: 1.8rem; font-weight: 700; color: var(--light); }
+  nav ul {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  nav ul li a {
+    color: var(--light);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  nav ul li.getloan a {
+    color: white;
+    border: 2px solid orange;
+    border-radius: 50px;
+    padding: 0.3rem 1rem;
+    display: block;
+    transition: all 0.3s ease;
+  }
+  nav ul li.getloan a:hover {
+    background: var(--dark);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-color: var(--dark);
+  }
+  nav ul li:not(.getloan) a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background: white;
+    transition: width 0.3s ease;
+  }
+  nav ul li:not(.getloan) a:hover::after { width: 100%; }
+
+  .menu-toggle {
+    display: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1001;
+  }
+
+    /* ----------- MOBILE RESPONSIVE ----------- */
+@media(max-width: 768px) {
+  .hero-section {
+    height: auto;
+    padding: 60px 20px;
+    text-align: center;
+    background-position: center;
+    flex-direction: column;
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: 32px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+}
+
+  @media(max-width: 768px) {
+    nav ul {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: var(--primary);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      padding: 0;
+      margin: 0;
+      z-index: 999;
+      transform: translateY(-100%);
+      transition: transform 0.5s ease-in-out;
+    }
+    nav ul.active { transform: translateY(0); }
+    .menu-toggle { display: block; }
+    nav ul li { width: 100%; text-align: center; }
+    nav ul li.getloan { width: 80%; }
+    nav ul li a { font-size: 1.5rem; padding: 1rem 0; }
+  }
+
+  @media (max-width: 768px) {
+    .navbar ul {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background: rgba(255, 122, 0, 0.95);
+      position: absolute;
+      top: 50px;
+      left: 0;
+    }
+    .navbar ul.active {
+      display: flex;
+    }
+    .hamburger {
+      display: flex;
+    }
+    .navbar ul li {
+      margin: 15px 0;
+      text-align: center;
+    }
+  }
+
+  /* FAQ Container */
+  .container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    color: #ff7a00;
+    margin-bottom: 30px;
+  }
+
+  .faq-item {
+    background: #161b22;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+
+  .faq-question {
+    padding: 15px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .faq-question:hover {
+    background: #21262d;
+  }
+
+  .faq-question::after {
+    content: '+';
+    position: absolute;
+    right: 20px;
+    font-size: 1.2em;
+    transition: transform 0.3s;
+  }
+
+  .faq-question.active::after {
+    content: '-';
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: #0d1117;
+    padding: 0 20px;
+  }
+
+  .faq-answer p {
+    padding: 15px 0;
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .faq-question, .faq-answer p {
+      font-size: 0.9em;
+      padding: 12px 15px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+  <nav>
+        <div class="logo">
+        <img src="{% static 'images/citygate.png' %}" alt="CTMI Logo">
+      </div>
+  <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+  <ul id="nav-links">
+    <li><a href="/home/">Home</a></li>
+    <li><a href="/about/">About Us</a></li>
+    <li><a href="/loan/">Loans</a></li>
+    <li><a href="https://monee.ng/">Monee</a></li>
+    <li><a href="/gallery/">Gallery</a></li>
+    <li><a href="/contact/">Contact</a></li>
+     <li><a href="/career/">Career</a></li>
+      <li><a href="/FAQ/">FAQ</a></li>
+    <li class="getloan"><a href="http://onlineloan.citygateglobal.com">Get Loan</a></li>
+  </ul>
+</nav>
+
+
+
+
+<div class="container" id="faq">
+  <h1>Frequently Asked Questions</h1>
+
+  <div class="faq-item">
+    <div class="faq-question"> How do I apply for a loan?</div>
+    <div class="faq-answer">
+      <p>There are majorly two ways to apply for a loan <br> <br> 1. From our website (fill the application form) <br> <br> 2. Walk into any of our office, and obtain a form</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question"> What are the eligibility criteria for getting a loan?</div>
+    <div class="faq-answer">
+      <p>A payroll loan is a loan secured by your salary, typically with lower interest than payday loans, and often deducted directly from your paycheck.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question"> Are there minimum and maximum amount that can be borrowed?</div>
+    <div class="faq-answer">
+      <p>The minimum borrowable amount is 50,000.00 Naira, and the and the maximum is subject to the borrowers financial capability.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">Can I get an extension on my loan?</div>
+    <div class="faq-answer">
+      <p>Yes, once per transaction.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">What is the meaning of DTI?</div>
+    <div class="faq-answer">
+      <p> DTI means debt to income ration: it is a technical term that determines what an individual can access per time relative to his/her net income.</p>
+    </div>
+  </div>
+
+    <div class="faq-item">
+    <div class="faq-question">What are consumable goods?</div>
+    <div class="faq-answer">
+      <p>These are goods that are on demand on regular basis.</p>
+    </div>
+  </div>
+
+      <div class="faq-item">
+    <div class="faq-question"> May I take multiple loans at the same time?</div>
+    <div class="faq-answer">
+      <p>Yes. Terms and conditions apply.</p>
+    </div>
+  </div>
+
+      <div class="faq-item">
+    <div class="faq-question">What are consumable goods?</div>
+    <div class="faq-answer">
+      <p>These are goods that are on demand on regular basis.</p>
+    </div>
+  </div>
+
+      <div class="faq-item">
+    <div class="faq-question"> How long do I have to wait after my loan has been fully paid to get another one?</div>
+    <div class="faq-answer">
+      <p>Immediately</p>
+    </div>
+  </div>
+
+      <div class="faq-item">
+    <div class="faq-question">How do I receive my loan after approval?</div>
+    <div class="faq-answer">
+      <p>Direct credit of submitted bank account(s).</p>
+    </div>
+  </div>
+
+      <div class="faq-item">
+    <div class="faq-question">How do I repay loans?</div>
+    <div class="faq-answer">
+      <p>The loans are repaid through: <br> <br> 1. Standing order <br> <br> 2. Bank transfer to our specified commercial bank account <br> <br> 3. Cheques</p>
+    </div>
+  </div>
+
+      <div class="faq-item">
+    <div class="faq-question"> Is it possible to change the amount applied for??</div>
+    <div class="faq-answer">
+      <p>Yes, before disbusement.</p>
+    </div>
+  </div>
+
+      <div class="faq-item">
+    <div class="faq-question"> Is a credit check required before loan approval?</div>
+    <div class="faq-answer">
+      <p>Yes</p>
+    </div>
+  </div>
+
+      <div class="faq-item">
+    <div class="faq-question"> How would I know if and when my loan has been approved?</div>
+    <div class="faq-answer">
+      <p>You will be notified through your relationship manager(our staff) or SMS.</p>
+    </div>
+  </div>
+
+      <div class="faq-item">
+    <div class="faq-question"> What are the requirements to access loan?</div>
+    <div class="faq-answer">
+      <p>Must have a legal and steady source of income <br> <br> 1. Recent bank statement(at least 6 months) <br> <br> 2. Recent passport photograph <br> <br> 3. Recent utility bill(not later than 3 months)</p>
+    </div>
+  </div>
+
+      <div class="faq-item">
+    <div class="faq-question">How long does it take to get a loan?</div>
+    <div class="faq-answer">
+      <p>Within 24 working hours</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('nav-links');
+  menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+  menuToggle.innerHTML = navLinks.classList.contains('active') ? '&times;' : '&#9776;';
+  });
+
+  // FAQ toggle
+  const faqQuestions = document.querySelectorAll('.faq-question');
+  faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+      const answer = question.nextElementSibling;
+      question.classList.toggle('active');
+      if (answer.style.maxHeight) {
+        answer.style.maxHeight = null;
+      } else {
+        answer.style.maxHeight = answer.scrollHeight + "px";
+      }
+    });
+  });
+
+  // Navbar hamburger toggle
+  function toggleMenu() {
+    const nav = document.querySelector('.navbar ul');
+    nav.classList.toggle('active');
+  }
+</script>
+
+</body>
+</html>

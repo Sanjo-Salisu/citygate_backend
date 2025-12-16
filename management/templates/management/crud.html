@@ -1,0 +1,303 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Management Panel - EmpireTrust</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+    }
+
+    /* ---- Original NAV BAR ---- */
+    nav {
+        background: #ff7a00;
+        color: white;
+        padding: 0.8rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin-left: 1rem;
+        font-weight: bold;
+    }
+    /* GALLERY LIST */
+.image-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+.image-item {
+    background: white;
+    padding: 0.5rem;
+    border-radius: 10px;
+    width: 180px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+.image-item img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.delete-link {
+    color: red;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* HIDE ALL SECTIONS BY DEFAULT */
+.section {
+    display: none;
+}
+
+    /* ---- LAYOUT ---- */
+    .layout {
+        display: flex;
+        max-width: 1200px;
+        margin: 1.5rem auto;
+    }
+
+    /* ---- SIDEBAR ---- */
+    .sidebar {
+        width: 210px;
+        background: #ff7a00;
+        padding: 1rem 2rem 17rem 1rem;
+        border-radius: 10px;
+        height: fit-content;
+        color: white;
+        margin-right: 1.5rem;
+    }
+
+    .sidebar h2 {
+        margin-top: 0;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    .sidebar a {
+        display: block;
+        padding: 0.6rem;
+        margin-bottom: 0.5rem;
+        background: rgba(255,255,255,0.25);
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+    .sidebar a:hover {
+        background: rgba(255,255,255,0.35);
+    }
+.view a{
+    display:flex; align-items:center; justify-content:center; 
+          padding:0.6rem; background:#ff7a00; color:white; 
+          border-radius:5px; text-decoration:none; font-weight:bold; margin-top:10px;
+}
+    /* ---- CONTENT ---- */
+    .content {
+        flex: 1;
+        padding: 1.5rem;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        color: #ff7a00;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-size: 1.4rem;
+    }
+
+    form input, form textarea, form button {
+        width: 100%;
+        padding: 0.6rem;
+        margin-bottom: 0.8rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 0.9rem;
+    }
+
+    form button {
+        background: #ff7a00;
+        border: none;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    form button:hover {
+        background: #e06600;
+    }
+
+    .image-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+    }
+
+    .image-item {
+        background: white;
+        padding: 0.5rem;
+        border-radius: 10px;
+        width: 180px;
+        text-align: center;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .image-item img {
+        width: 100%;
+        height: 110px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .delete-link {
+        color: red;
+        font-size: 0.9rem;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    
+</style>
+
+<script>
+function showSection(sectionId) {
+    document.querySelectorAll(".section").forEach(sec => sec.style.display = "none");
+    document.getElementById(sectionId).style.display = "block";
+}
+</script>
+</head>
+<body>
+
+<!-- ORIGINAL TOP NAV BAR -->
+<nav>
+    <div>Citygate Management</div>
+    <div>
+        <a href="/accounts/login/">Logout</a>
+        <a href="/gallery_crud/">Home</a>
+    </div>
+</nav>
+
+<!-- WRAPPED LAYOUT -->
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <a href="#" onclick="showSection('user_accounts')">User Accounts</a>
+        <a href="#" onclick="showSection('add_profile')">Add Management Profile</a>
+        <a href="#" onclick="showSection('add_gallery')">Add Gallery</a>
+       <a href="#" onclick="showSection('add_career')">Add Career</a>
+    </div>
+
+    <!-- CONTENT AREA -->
+    <div class="content">
+
+        <!-- USER ACCOUNTS -->
+        <div id="user_accounts" class="section" style="display:block;">
+            <h1>Create User Account</h1>
+            <form method="POST" action="/add_user/">
+                {% csrf_token %}
+                <input type="text" name="username" autocomplete="off" placeholder="Username" required>
+                <input type="password" name="password" autocomplete="new-password" placeholder="Password" required>
+                <button type="submit">Create User</button>
+                 <!-- View Users Button -->
+        <a href="/user_list/" style="display:flex; align-items:center; justify-content:center; padding:0.6rem 1rem; background:#ff7a00; color:white; border-radius:5px; text-decoration:none; font-weight:bold;">
+            View Users
+        </a>
+            </form>
+        </div>
+
+        <!-- ADD PROFILE WITH PICTURE -->
+        <div id="add_profile" class="section" style="display:none;">
+            <h1>Add Management Profile</h1>
+            <form method="POST" enctype="multipart/form-data" action="/add_profile/">
+                {% csrf_token %}
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="text" name="title" placeholder="Title / Position" required>
+                <textarea name="about" rows="4" placeholder="About" required></textarea>
+                <label for="profile_pic">Profile Picture</label>
+                <input type="file" name="profile_pic" id="profile_pic" accept="image/*">
+                <button type="submit">Save Profile</button>
+               <div class="view"> <a href="{% url 'management_updates_list' %}"> View Management Profile </a></div>
+            </form>
+        </div>
+     <!-- GALLERY LIST -->
+<div id="add_career" class="section" style="display:none;">
+    <h1>Add Career</h1>
+    <form method="POST" action="{% url 'add_career' %}">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Job Title" required>
+        <input type="text" name="location" placeholder="Location (e.g Lagos)" required>
+        <input type="text" name="job_type" placeholder="Job Type (e.g Full-time)" required>
+        
+        <textarea name="duties" rows="5" placeholder="Enter each duty on a new line" required></textarea>
+        
+        <textarea name="apply_note" rows="3" placeholder="Application Note" required></textarea>
+        
+        <button type="submit">Save Career</button>
+    </form>
+
+    <div class="view">
+        <a href="/career_list/">View Careers</a>
+    </div>
+</div>
+<!-- ADD GALLERY -->
+<div id="add_gallery" class="section" style="display:none;">
+    <h1 style="color:#ff7a00; text-align:center; margin-bottom:1rem;">Add Gallery</h1>
+
+    <!-- Gallery Upload Form -->
+<form method="POST" enctype="multipart/form-data" action="/gallery_list/">
+    {% csrf_token %}
+
+    <!-- Title input -->
+    <input type="text" name="title" placeholder="Image Title" required>
+
+    <!-- Uploaded by (optional, or you can prefill) -->
+    <input type="text" name="uploaded_by" placeholder="Uploaded By" required>
+
+    <!-- Image file input -->
+    <label for="image">Select Image</label>
+    <input type="file" name="image" id="image" accept="image/*" required>
+
+    <button type="submit">Add Image</button>
+
+    <!-- Optional link to view gallery page -->
+    <div class="view">
+        <a href="{% url 'gallery_list' %}">View Gallery</a>
+    </div>
+</form>
+
+   
+
+
+<!-- crud.html (inside Add Gallery section) -->
+<div id="add_gallery" class="section" style="display:none;">
+    <h1 style="color:#ff7a00; text-align:center; margin-bottom:1rem;">Add Gallery</h1>
+
+    <form method="POST" enctype="multipart/form-data" action="{% url 'gallery_list' %}">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Image Title" required>
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Add Image</button>
+    </form>
+
+
+
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,857 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citygate Global Limited</title>
+  <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+  <style>
+
+     /* Ensure full width on mobile */
+body, html {
+  width: 100%;
+  overflow-x: hidden; /* prevent horizontal scroll */
+}
+
+/* Force sections to respect viewport */
+section, header, .hero-section, .about-text, .about-image, .loan-gallery, iframe, video {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+@media only screen and (max-width: 768px) {
+  .logo img {
+    height: 50px !important; /* force override */
+  }
+}
+/* Responsive grids */
+.loan-gallery {
+  grid-template-columns: 1fr !important; /* single column on mobile */
+}
+
+/* Remove extra padding/margin on mobile */
+@media (max-width: 768px) {
+  section, .hero-section, .about-text, .about-image {
+    padding: 20px !important;
+    margin: 0 auto !important;
+  }
+
+  iframe, video, img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  
+  .loan-gallery {
+    grid-template-columns: 1fr !important;
+  }
+}
+/* ------------------------------ */
+/*   Loan Cards Section Styling   */
+/* ------------------------------ */
+
+.loan-cards-section {
+  padding: 4rem 6%;
+  background: #fafafa;
+}
+
+    .section-title {
+    text-align: center !important;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    display: block;
+}
+
+
+.section-title {
+  grid-column: 1 / -1;
+  font-size: 2.1rem;
+  color: var(--dark);
+  margin-bottom: 3rem;
+  font-weight: 700;
+  position: relative;
+  margin-top: 40px;
+}
+
+.section-title::after {
+  content: '';
+  width: 80px;
+  height: 4px;
+  background: var(--primary);
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.loan-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.loan-cards .card {
+  background: var(--light);
+  border-radius: 20px;
+  box-shadow: 0 4px 25px rgba(0,0,0,0.07);
+  overflow: hidden;
+  width: calc(33% - 2rem);
+  min-width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.loan-cards .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 30px rgba(255, 106, 0, 0.2);
+}
+a {
+  text-decoration: none;
+}
+.loan-cards .card img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+}
+
+.loan-cards .card h3 {
+  font-size: 1.45rem;
+  margin: 1.2rem 1.5rem 0.5rem;
+  color: var(--dark);
+  font-weight: 600;
+}
+
+.loan-cards .card p {
+  font-size: 1rem;
+  margin: 0 1.5rem 1rem;
+  color: #444;
+}
+
+.loan-cards .card ul {
+  margin: 0 1.5rem 1.5rem;
+  list-style: disc inside;
+  line-height: 1.6;
+  color: #444;
+}
+
+.loan-cards .card ul h4 {
+  margin-bottom: 0.4rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.loan-cards .card a.btn-primary {
+  margin: 0 1.5rem 1.5rem;
+  align-self: flex-start;
+}
+
+    :root {
+      --primary: #ff7a00;
+      --light: #ffffff;
+      --dark: #1a1a1a;
+      --gray: #f5f5f5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: var(--white);
+      color: var(--light);
+      overflow-x: hidden;
+    }
+
+    header {
+      position: relative;
+      text-align: center;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(95, 94, 94, 0.6)), url("{% static 'images/gen.jpg' %}") no-repeat center/cover;
+      height: 70vh;
+      overflow: hidden;
+    }
+      .logo img {
+      height: 40px;
+      width: auto;
+    }
+
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 122, 0, 0.95);
+    padding: 1rem 5%;
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .logo { font-size: 1.8rem; font-weight: 700; color: var(--light); }
+  nav ul {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  nav ul li a {
+    color: var(--light);
+    text-decoration: none;
+    font-size: large;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  nav ul li.getloan a {
+    color: white;
+    border: 2px solid orange;
+    border-radius: 50px;
+    padding: 0.3rem 1rem;
+    display: block;
+    transition: all 0.3s ease;
+  }
+  nav ul li.getloan a:hover {
+    background: var(--dark);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-color: var(--dark);
+  }
+  nav ul li:not(.getloan) a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background: white;
+    transition: width 0.3s ease;
+  }
+  nav ul li:not(.getloan) a:hover::after { width: 100%; }
+
+  .menu-toggle {
+    display: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1001;
+  }
+.about-text{
+   text-align: justify;
+  }
+    /* Hero text */
+    .hero {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--light);
+      text-align: center;
+      z-index: 2;
+    }
+
+    .hero h2 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+    }
+
+    /* Balloons */
+    #balloon-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -10px;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: float 10s linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0) rotate(0deg); }
+      to { transform: translateY(-120vh) rotate(360deg); }
+    }
+
+    /* About */
+  section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 4rem 8%;
+    flex-wrap: wrap;
+  }
+  .about-text { flex: 1; min-width: 280px; }
+  .about-image { flex: 1; min-width: 280px; text-align: center; }
+  .about-image img, .about-image iframe { width: 100%; max-width: 400px; border-radius: 15px; }
+  section h2 { color: var(--primary); font-size: 2rem; margin-bottom: 1rem; }
+  section p { color: #444; font-size: 1rem; line-height: 1.6; }
+  .btn-container { margin-top: 1.5rem; }
+  section:nth-child(even) { background: var(--gray); }
+
+  
+    /* Footer */
+    footer {
+      background: rgba(255, 122, 0, 0.95);
+      text-align: center;
+      padding: 30px 10px;
+      color: var(--light);
+      font-size: 0.9rem;
+    }
+
+    footer p {
+      margin-top: 5px;
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
+    footer .credit {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 5px;
+    }
+
+.loan-calculator-section {
+  background: #f4f4f4;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.loan-calculator-section h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.loan-calculator-section p {
+  font-size: 16px;
+  margin-bottom: 40px;
+  color: #555;
+}
+
+/* Wrap */
+.calculator-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  gap: 40px;
+  padding: 40px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Inputs section */
+.calculator-inputs {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.calculator-inputs label {
+  font-weight: 600;
+  color: #333;
+  text-align: left;
+}
+
+.calculator-inputs input,
+.calculator-inputs select {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.calculator-inputs input:focus,
+.calculator-inputs select:focus {
+  border-color: #ff7a00;
+}
+
+.btn-primary {
+  margin-top: 10px;
+  padding: 14px;
+  border: none;
+  background: #ff7a00;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  background: #e56a00;
+}
+
+/* Result box */
+.calculator-result {
+  flex: 1;
+  background: #fafafa;
+  border-left: 4px solid #ff7a00;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: left;
+  box-shadow: inset 0 0 10px rgba(255, 122, 0, 0.12);
+}
+
+.calculator-result h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.calculator-result p {
+  font-size: 18px;
+  margin: 15px 0;
+  color: #333;
+}
+
+.calculator-result span {
+  font-weight: bold;
+  color: #ff7a00;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+  .calculator-wrap {
+    flex-direction: column;
+    padding: 30px;
+  }
+
+  .calculator-result {
+    text-align: center;
+    border-left: none;
+    border-top: 4px solid #ff7a00;
+  }
+}
+
+
+.btn-primary {
+  background-color: #ff6f00;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.btn-primary:hover {
+  background-color: #ff8f33;
+}
+
+/* Result Box */
+#result-box {
+  flex: 1;
+  min-width: 250px;
+  background-color: #fff3e0;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  margin-left: 200px;
+}
+
+#result-box h3 {
+  margin-bottom: 20px;
+  color: #ff6f00;
+}
+
+#result-box p {
+  font-size: 1.1rem;
+  margin: 8px 0;
+  color: #333;
+}
+
+#result-box span {
+  font-weight: 700;
+  color: #ff6f00;
+}
+
+
+/* ----- Responsive ----- */
+@media (max-width: 768px) {
+  .calculator-wrap {
+    flex-direction: column;
+    align-items: center; /* center all child items */
+  }
+
+  #result-box {
+    margin-left: 0; /* remove left margin */
+    width: 90%;      /* take most of the screen width */
+    padding: 20px;
+  }
+
+  #result-box h3 {
+    font-size: 1.3rem;
+  }
+
+  #result-box p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #result-box {
+    width: 95%;
+    padding: 15px;
+  }
+
+  #result-box h3 {
+    font-size: 1.1rem;
+  }
+
+  #result-box p {
+    font-size: 0.95rem;
+  }
+}
+
+
+    /* Responsive */
+    @media (max-width: 768px) {
+    nav ul {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: var(--primary);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      padding: 0;
+      margin: 0;
+      z-index: 999;
+      transform: translateY(-100%);
+      transition: transform 0.5s ease-in-out;
+    }
+    nav ul.active { transform: translateY(0); }
+    .menu-toggle { display: block; }
+    nav ul li { width: 100%; text-align: center; }
+    nav ul li.getloan { width: 80%; }
+    nav ul li a { font-size: 1.5rem; padding: 1rem 0; }
+
+ 
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      nav ul.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav ul li {
+        padding: 10px 0;
+      }
+
+      nav ul li a {
+        font-size: 1.1rem;
+      }
+
+      .hero h2 {
+        font-size: 2.2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      nav ul li.get-loan {
+        order: -1;
+        width: 100%;
+        text-align: center;
+        background: var(--primary);
+        padding: 10px 0;
+      }
+       #loan-calculator {
+      padding: 3rem 4%;
+    }
+
+    }   
+
+  </style>
+</head>
+<body>
+
+  <!-- Balloons -->
+  <div id="balloon-container"></div>
+
+  <!-- Navigation -->
+<nav>
+        <div class="logo">
+        <img src="{% static 'images/citygate.png' %}" alt="ETMFB Logo">
+      </div>
+  <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+  <ul id="nav-links">
+    <li><a href="/home/">Home</a></li>
+    <li><a href="/about/">About Us</a></li>
+    <li><a href="/loan/">Loans</a></li>
+    <li><a href="https://monee.ng/">Monee</a></li>
+    <li><a href="/gallery/">Gallery</a></li>
+    <li><a href="/contact/">Contact</a></li>
+     <li><a href="/career/">Career</a></li>
+      <li><a href="/FAQ/">FAQ</a></li>
+    <li class="getloan"><a href="http://onlineloan.citygateglobal.com " target="_blank">Get Loan</a></li>
+  </ul>
+</nav>
+
+
+  <!-- Hero Section -->
+  <header>
+    <div class="hero">
+      <h2>Our Loan Products</h2>
+      <p>Smart financing solutions designed for individuals, entrepreneurs, and SMEs — giving you quick and reliable access to credit exactly when you need it.</p>
+    </div>
+  </header>
+
+  <!-- Loan Section -->
+   
+<section id="about" class="fade-in">
+  <div class="about-text">
+    <h2>Loan Options</h2>
+    <p>Our loan packages are designed to help you achieve your financial goals. Enjoy flexible terms, low rates, and instant approval with CityGate Global.</p>
+  </div>
+  <div class="about-image">
+    <div class="about-image">
+   <video autoplay muted loop width="80%">
+    <source src="{% static 'frontend/video/about.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+</div>
+</section>
+
+  <section class="loan-cards-section">
+        <h2 class="section-title">Apply for Loans</h2>
+
+    <div class="loan-cards">        
+      <div class="card">
+        <img src="{% static 'images/paydayloan.png' %}" alt="Payday Loan">
+        <h3>Payday Loan(Private Sector)</h3>
+        <p>This is a loan facility designed to meet urgent needs and bridge liquidity gaps of salary earners in private establishments. It is structured against monthly salary</p>
+        <ul>
+            <h4>Features</h4>
+          <li>The net salary determines the loan amount to be availed.</li>
+          <li>Competitive interest rate</li>
+          <li>Seamless service delivery.</li>
+          <li>Convenience in repayment.</li>
+          <li>Flexible tenor.</li>
+        </ul>
+        <a href="http://ibank.empiretrustmfb.com/loan-request/pay-day-loan" target="_blank" class="btn-primary" style="margin-top: 70px;">Apply Now</a>
+      </div>
+
+      <div class="card">
+        <img src="{% static 'images/payrollloan.png' %}" alt="Payroll Loan">
+        <h3>Payroll Loan(Public Sector)</h3>
+        <p>This is a loan facility designed to meet urgent needs and bridge liquidity gaps of salary earners in public establishments. It is structured against monthly salary.</p>
+        <ul>
+            <h4>Features</h4>
+          <li>The net salary determines the loan amount to be availed.</li>
+          <li>Competitive interest rate.</li>
+          <li>Seamless service delivery.</li>
+          <li>Convenience in repayment.</li>
+          <li>Flexible tenor.</li>
+        </ul>
+        <a href="http://ibank.empiretrustmfb.com/loan-request/payroll-loan" target="_blank" class="btn-primary"  style="margin-top: 70px;">Apply Now</a>
+      </div>
+  
+      <div class="card">
+        <img src="{% static 'images/SMEloan.png' %}" alt="SME Loan">
+        <h3>SME Loan</h3>
+        <p>Small Medium Enterprise (SME) loans are designed to enable small entrepreneurs access business loans – working capital, project, supply (LPO) etc. Securities for these loans are based on traditional collaterals. The loan is to augment working capital and not for start-up business.</p>
+        <ul>
+            <h4>Features</h4>
+          <li>Competitive interest rate.</li>
+          <li>Flexible collateral.</li>
+          <li>Repayment is structured for every 30 days.</li>
+          <li>Business turnover determines the loan amount.</li>
+          <li>Tenor is within 180 days.</li>
+        </ul>
+        <a href="http://ibank.empiretrustmfb.com/loan-request/sme-loans" target="_blank" class="btn-primary">Apply Now</a>
+      </div>
+
+      <div class="card">
+        <img src="{% static 'images/assetloan.png' %}" alt="Asset Loan">
+        <h3>Asset Loan</h3>
+        <p>This product is designed to procure desired assets for our customer cutting accross different types of home appliances - TV, Refridgerator, Deep Freezer, Air Conditioner, Washing Machine, Microwaves, to mention a few from reputable vendors. With this product, the customer has possession while the bank has ownership.</p>
+        <ul>
+            <h4>Features</h4>
+          <li>Competitive interest rate.</li>
+          <li>Flexible tenure.</li>
+          <li>Asset serves as collateral.</li>
+          <li>Seamless asset delivery.</li>
+          <li>Convenient repayment pattern.</li>
+          <li>Comprehensive insurance required on the asset.</li>
+        </ul>
+        <a href="http://ibank.empiretrustmfb.com/loan-request/assets-finance-funds" target="_blank" class="btn-primary" >Apply Now</a>
+      </div>
+
+      <div class="card">
+        <img src="{% static 'images/backtoschool.png' %}" alt="school Loan">
+        <h3>Back To School Loan</h3>
+        <p>This loan facility is designed to support parents and guardians with the cost of school start-up — tuition, uniforms, supplies and other essentials — for the new academic term. It aims to ease the financial burden of back-to-school expenses and help families plan ahead.</p>
+        <ul>
+            <h4>Features</h4>
+          <li>The borrower’s net income or school fee requirement determines the loan amount.</li>
+          <li>Accessible to both public and private sector employees.</li>
+          <li>Seamless service delivery.</li>
+          <li>Convenient repayment schedule.</li>
+          <li>Flexible tenor.</li>
+        </ul>
+        <a href="#" class="btn-primary"  style="margin-top: 25px;">Apply Now</a>
+      </div>
+    </div>
+    </section>
+
+    
+    <section class="loan-calculator-section" style="background-color: #ddd;">
+   
+          <div class="calculator-wrap" id="calculator">
+          <div class="calculator-inputs">
+            <h2>Loan Calculator</h2> <br>
+            <label for="loanType">Loan Type</label>
+            <select id="loanType">
+              <option value="payday">Payday Loan (Private Sector)</option>
+              <option value="payroll">Payroll Loan (Public Sector)</option>
+              <option value="sme">SME Loan</option>
+              <option value="asset">Asset Loan</option>
+              <option value="school">Back-to-School Loan</option>
+            </select>
+      
+            <label for="amount">Loan Amount (₦)</label>
+            <input type="number" id="amount" placeholder="Enter amount" min="10000" />
+      
+            <label for="tenor">Tenor (months)</label>
+            <input type="number" id="tenor" placeholder="Enter months (max 24)" min="1" max="24" />
+      
+            <button class="btn-primary" onclick="calculateLoan()">Calculate</button>
+          </div>
+      
+          <div class="{% static 'frontend/calculator-result' %}" id="result-box">
+            <h3>Calculation Result:</h3>
+            <p><strong>Monthly Payment:</strong> <span id="monthly-payment">₦0</span></p>
+            <p><strong>Total Interest:</strong> <span id="total-interest">₦0</span></p>
+            <p><strong>Total Repayment:</strong> <span id="total-repayment">₦0</span></p>
+          </div>
+        </div>
+ 
+ </section>  
+        </div>
+
+  <!-- Footer -->
+  <footer>
+    <h3>Citygate Global Investment Limited</h3>
+    <p>© 2025 Citygate Bank. All Rights Reserved.</p>
+
+  <script>
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      menuToggle.innerHTML = navLinks.classList.contains('active') ? '&times;' : '&#9776;';
+    });
+
+    // Balloons Animation (smaller)
+    const balloonContainer = document.getElementById('balloon-container');
+    const colors = ['rgba(255, 122, 0, 0.5)', 'rgba(255,255,255,0.5)'];
+
+    function createBalloon() {
+      const balloon = document.createElement('div');
+      balloon.classList.add('balloon');
+      balloon.style.left = Math.random() * 100 + 'vw';
+      const size = 6 + Math.random() * 8; // Smaller size
+      balloon.style.width = size + 'px';
+      balloon.style.height = size + 'px';
+      balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
+      balloon.style.animationDuration = 6 + Math.random() * 6 + 's';
+      balloonContainer.appendChild(balloon);
+      setTimeout(() => balloon.remove(), 12000);
+    }
+
+    setInterval(createBalloon, 300);
+
+    </script>
+
+<script>
+
+// Loan Calculator
+function calculateLoan() {
+  const loanType = document.getElementById('loanType').value;
+  const amount = parseFloat(document.getElementById('amount').value);
+  const tenor = parseInt(document.getElementById('tenor').value);
+
+  // Validation
+  if (!amount || amount < 10000) {
+    alert("Please enter a loan amount above ₦10,000");
+    return;
+  }
+  if (!tenor || tenor < 1 || tenor > 24) {
+    alert("Please enter a valid tenor between 1 and 24 months.");
+    return;
+  }
+
+  // Monthly flat interest rates
+  const rates = {
+    payday: 0.04,   // 4%
+    payroll: 0.04,  // 4%
+    sme: 0.045,     // 4.5%
+    asset: 0.045,   // 4.5%
+    school: 0.045   // 4.5%
+  };
+
+  const rate = rates[loanType];
+  if (!rate) {
+    alert("Please select a valid loan type.");
+    return;
+  }
+
+  // Flat rate interest calculation
+  const totalInterest = amount * rate * tenor;
+  const totalRepayment = amount + totalInterest;
+  const monthlyRepayment = totalRepayment / tenor;
+
+  // Display results
+  document.getElementById('monthly-payment').innerText =
+    "₦" + monthlyRepayment.toLocaleString(undefined, { minimumFractionDigits: 2 });
+  document.getElementById('total-interest').innerText =
+    "₦" + totalInterest.toLocaleString(undefined, { minimumFractionDigits: 2 });
+  document.getElementById('total-repayment').innerText =
+    "₦" + totalRepayment.toLocaleString(undefined, { minimumFractionDigits: 2 });
+}
+
+</script>
+
+</body>
+</html>
