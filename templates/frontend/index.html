@@ -1148,15 +1148,27 @@ section, header, .hero-section, .about-text, .about-image, .loan-gallery, iframe
     #contact .about-image {text-align: center;}
     #contact .about-image img {max-width: 80%;}}
   
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
   .gallery-track {
-    animation-duration: 5s;
+    animation: mobile-scroll 30s linear infinite;
   }
 
   .gallery-track img {
     width: 180px;
+    flex-shrink: 0;
   }
 }
+
+/* MOBILE-ONLY KEYFRAMES */
+@keyframes mobile-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-1 * var(--mobile-scroll-width)));
+  }
+}
+
 
 </style>
 </head>
