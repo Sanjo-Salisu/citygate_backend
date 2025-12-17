@@ -1134,7 +1134,7 @@ section, header, .hero-section, .about-text, .about-image, .loan-gallery, iframe
 
 /* Responsive adjustments for mobile header */
   @media(max-width:768px) {
-    header{background: linear-gradient(rgba(166, 166, 166, 0.916), rgba(214, 214, 214, 0.765)), url("{% static 'images/newmobile.png'%}") no-repeat center/cover;}
+    header{background: url("{% static 'images/newmobile.png'%}") no-repeat center/cover;}
     header, #about, #loans, #monee, #locality, #easy-loan-steps, #why-choose { flex-direction: column; text-align: center !important; }
     .about-text, .loan-text, .about-image { text-align: center; }
     .loan-gallery { justify-content: center; }
