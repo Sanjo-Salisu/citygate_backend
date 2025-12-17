@@ -1134,8 +1134,8 @@ section, header, .hero-section, .about-text, .about-image, .loan-gallery, iframe
 
 /* Responsive adjustments for mobile header */
   @media(max-width:768px) {
-    header{background: linear-gradient(rgba(119, 119, 119, 0.628), rgba(0, 0, 0, 0.765)), url("{% static 'images/newmobile.png'%}") no-repeat center/cover;}
-    header, #about, #loans, #monee, #locality, #easy-loan-steps, #why-choose { flex-direction: column; text-align: center; }
+    header{background: linear-gradient(rgba(166, 166, 166, 0.916), rgba(214, 214, 214, 0.765)), url("{% static 'images/newmobile.png'%}") no-repeat center/cover;}
+    header, #about, #loans, #monee, #locality, #easy-loan-steps, #why-choose { flex-direction: column; text-align: center !important; }
     .about-text, .loan-text, .about-image { text-align: center; }
     .loan-gallery { justify-content: center; }
     .loan-item img { width: 80%; }
@@ -1149,6 +1149,17 @@ section, header, .hero-section, .about-text, .about-image, .loan-gallery, iframe
     #contact .about-text,
     #contact .about-image {text-align: center;}
     #contact .about-image img {max-width: 80%;}}
+  
+  @media (max-width: 768px) {
+  .gallery-track {
+    animation-duration: 35s;
+  }
+
+  .gallery-track img {
+    width: 180px;
+  }
+}
+
 </style>
 </head>
 <body>
