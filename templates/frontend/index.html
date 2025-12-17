@@ -1130,7 +1130,17 @@ section, header, .hero-section, .about-text, .about-image, .loan-gallery, iframe
 .subscribe-form button:hover {
   opacity: 0.9;
 }
+@media (max-width: 600px) {
+  .subscribe-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
+  .subscribe-form input,
+  .subscribe-form button {
+    width: 100%;
+  }
+}
 
 /* Responsive adjustments for mobile header */
   @media(max-width:768px) {
@@ -1150,7 +1160,7 @@ section, header, .hero-section, .about-text, .about-image, .loan-gallery, iframe
   
 @media (max-width: 768px) {
   .gallery-track {
-    animation: mobile-scroll 5s linear infinite;
+    animation: mobile-scroll 12s linear infinite;
   }
 
   .gallery-track img {
@@ -1159,15 +1169,16 @@ section, header, .hero-section, .about-text, .about-image, .loan-gallery, iframe
   }
 }
 
-/* MOBILE-ONLY KEYFRAMES */
+/* MOBILE KEYFRAMES */
 @keyframes mobile-scroll {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(calc(-1 * var(--mobile-scroll-width)));
+    transform: translateX(-100%);
   }
 }
+
 
 
 </style>
@@ -1199,7 +1210,7 @@ section, header, .hero-section, .about-text, .about-image, .loan-gallery, iframe
 <header id="home" class="fade-in">
 <div class="hero-section">
   <div class="hero-content">
-    <h1>Unlock Opportunities<span> with Quick, Trusted Loans</span></h1>
+    <h1 style="text-align: center;">Unlock Opportunities<span> with Quick, Trusted Loans</span></h1>
     <p>
       Smart banking. Fast loans. Trusted financial growth through savings and
       investment with <strong>Citygate Global Investment Limited.</strong>
