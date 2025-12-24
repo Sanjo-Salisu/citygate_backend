@@ -577,7 +577,8 @@ section, header, .hero-section, .about-text, .about-image, .loan-gallery, iframe
       header {
       position: relative;
       text-align: center;
-      background: linear-gradient(rgba(119, 119, 119, 0.096), rgba(0, 0, 0, 0.128)), url("{% static 'images/web.png'%}") no-repeat center/cover fixed;
+      background: linear-gradient(rgba(119, 119, 119, 0.096), rgba(0, 0, 0, 0.128)), url("{% static 'images/web.png'%}") no-repeat center/cover;
+      background-attachment: fixed;
       height: 110vh;
       overflow: hidden;
     }
