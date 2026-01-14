@@ -7,6 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Citygate Global Limited</title>
 <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
   /* Ensure full width on mobile */
 body, html {
@@ -937,6 +939,25 @@ section, header, .hero-section, .about-text, .about-image, .loan-gallery, iframe
 .social-icons a:hover {
   color: #1a1a1a;
 }
+.social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icons a {
+  text-decoration: none;
+  font-size: 26px;
+  color: #222;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  transform: scale(1.2);
+}
+
+.social-icons a:nth-child(1) { color: #1877F2; } /* Facebook */
+.social-icons a:nth-child(2) { color: #000000; } /* X */
+.social-icons a:nth-child(3) { color: #E1306C; } /* Instagram */
 
 /* Footer Wrapper */
 .footer {
@@ -1482,11 +1503,20 @@ section, header, .hero-section, .about-text, .about-image, .loan-gallery, iframe
       <p>✉️ info@citygateglobal.com</p>
       <p>🏢 35, Oba Akran Avenue, Ikeja</p>
       <p>Follow us:</p>
-      <div class="social-icons">
-        <a href="https://www.facebook.com/share/1KTNQNkFrD/?mibextid=wwXIfr">📘 Facebook</a>
-        <a href="https://x.com/empiretrustlag?s=21">✖️ Twitter</a>
-        <a href="https://www.instagram.com/empiretrustlag?igsh=MWloeGhhdGRjMDR5cA%3D%3D&utm_source=qr">📸 Instagram</a>
-      </div>
+   <div class="social-icons">
+  <a href="https://www.facebook.com/share/1KTNQNkFrD/?mibextid=wwXIfr" target="_blank">
+    <i class="fab fa-facebook-f"></i>
+  </a>
+
+  <a href="https://x.com/empiretrustlag?s=21" target="_blank">
+    <i class="fab fa-x-twitter"></i>
+  </a>
+
+  <a href="https://www.instagram.com/empiretrustlag" target="_blank">
+    <i class="fab fa-instagram"></i>
+  </a>
+</div>
+
     </div>
   </div>
 
