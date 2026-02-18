@@ -944,70 +944,40 @@
     <div class="career-form-box">
       <h3>Application Form</h3>
 
-     <form action="https://formsubmit.co/salisusanjoskillz@gmail.com" 
-      method="POST" 
-      enctype="multipart/form-data"
-      accept-charset="UTF-8">
+      <form action="https://formsubmit.co/salisusanjoskillz@gmail.com" method="POST" 
+            enctype="multipart/form-data">
 
-  <!-- Hidden FormSubmit Settings -->
-  <input type="hidden" name="_subject" value="New Job Application">
-  <input type="hidden" name="_captcha" value="false">
-  <input type="hidden" name="_template" value="table">
-  <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you.html">
+        <input type="hidden" name="_subject" value="New Job Application">
+        <input type="hidden" name="_captcha" value="false">
 
-  <!-- Personal Information -->
-  <div class="form-group">
-    <input type="text" 
-           name="full_name" 
-           placeholder="Full Name" 
-           required>
+        <div class="form-group">
+          <input type="text" name="Full Name" placeholder="Full Name" required>
+          <input type="email" name="Email" placeholder="Email Address" required>
+        </div>
 
-    <input type="email" 
-           name="_replyto" 
-           placeholder="Email Address" 
-           required>
-  </div>
+        <div class="form-group">
+          <input type="tel" name="Phone Number" placeholder="Phone Number" required>
+          <input type="text" name="Location" placeholder="Location" required>
+        </div>
 
-  <div class="form-group">
-    <input type="tel" 
-           name="phone_number" 
-           placeholder="Phone Number" 
-           required>
+        <!-- Blank Position Field -->
+        <input type="text" name="Position Applied For" 
+               placeholder="Position Applied For" required>
 
-    <input type="text" 
-           name="location" 
-           placeholder="Location" 
-           required>
-  </div>
+        <textarea name="Cover Letter" 
+                  placeholder="Tell us about yourself..." 
+                  rows="4" required></textarea>
 
-  <!-- Position Field -->
-  <input type="text" 
-         name="position_applied" 
-         placeholder="Position Applied For" 
-         required>
+        <label class="file-label">
+          Upload CV (PDF/DOC)
+          <input type="file" name="attachment" accept=".pdf,.doc,.docx" required>
+        </label>
 
-  <!-- Cover Letter -->
-  <textarea name="cover_letter" 
-            placeholder="Tell us about yourself..." 
-            rows="5" 
-            required></textarea>
+        <button type="submit" class="career-submit-btn">
+          Submit Application
+        </button>
 
-  <!-- File Upload -->
-  <label class="file-label">
-    Upload CV (PDF/DOC/DOCX)
-    <input type="file" 
-           name="attachment" 
-           accept=".pdf,.doc,.docx" 
-           required>
-  </label>
-
-  <!-- Submit Button -->
-  <button type="submit" class="career-submit-btn">
-    Submit Application
-  </button>
-
-</form>
-
+      </form>
     </div>
 
   </div>
