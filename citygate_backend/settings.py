@@ -138,6 +138,13 @@ EMAIL_HOST_PASSWORD = "bEjKDwJ2VBJR"
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+EMAIL_HOST = "smtp.zoho.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "careers@citygateglobal.com"
+EMAIL_HOST_PASSWORD = "bEjKDwJ2VBJR"            
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [ BASE_DIR /"templates" / "frontend" / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
