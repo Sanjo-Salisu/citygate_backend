@@ -944,32 +944,41 @@
     <div class="career-form-box">
       <h3>Application Form</h3>
 
- <form action="https://formsubmit.co/careers@empiretrustmfb.com" method="POST" enctype="multipart/form-data">
+<form action="https://formsubmit.co/ajax/salisusanjoskillz@gmail.com" 
+      method="POST" 
+      enctype="multipart/form-data">
 
-      <!-- Email Settings -->
-      <input type="hidden" name="_subject" value="New Job Application">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_subject" value="New Job Application">
+        <input type="hidden" name="_captcha" value="false">
 
-      <input type="text" name="First Name" placeholder="First Name" required>
-      <input type="text" name="Last Name" placeholder="Last Name" required>
-      <input type="email" name="Email" placeholder="Email Address" required>
+        <div class="form-group">
+          <input type="text" name="Full Name" placeholder="Full Name" required>
+          <input type="email" name="Email" placeholder="Email Address" required>
+        </div>
 
-      <input type="text" name="Position" placeholder="Position Applying For" required>
+        <div class="form-group">
+          <input type="tel" name="Phone Number" placeholder="Phone Number" required>
+          <input type="text" name="Location" placeholder="Location" required>
+        </div>
 
-      <input type="number" name="Age" placeholder="Your Age" required>
-      <input type="number" name="Experience" placeholder="Years of Experience" required>
+        <!-- Blank Position Field -->
+        <input type="text" name="Position Applied For" 
+               placeholder="Position Applied For" required>
 
-      <label class="file-label">
-        Upload resume (word/pdf only)
-        <input type="file" name="Resume" accept=".pdf,.doc,.docx" required>
-      </label>
+        <textarea name="Cover Letter" 
+                  placeholder="Tell us about yourself..." 
+                  rows="4" required></textarea>
 
-      <button type="submit" class="submit-btn">
-        Submit Application
-      </button>
+        <label class="file-label">
+          Upload CV (PDF/DOC)
+          <input type="file" name="attachment" accept=".pdf,.doc,.docx" required>
+        </label>
 
-    </form>
+        <button type="submit" class="career-submit-btn">
+          Submit Application
+        </button>
+
+      </form>
     </div>
 
   </div>
